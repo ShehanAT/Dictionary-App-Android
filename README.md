@@ -5,9 +5,9 @@ A simple Dictionary Application built using Kotlin, Gradle, and Android Studio
 
 ## Screenshots
 
-[comment]: <> (![Homepage image 1]&#40;/screenshots/homepage_image1.png&#41;)
+![Homepage image 1](/screenshots/homepage_image_1.png)
 
-[comment]: <> (Figure 1: Homepage image)
+Figure 1: Homepage image
 
 
 # Getting Started
