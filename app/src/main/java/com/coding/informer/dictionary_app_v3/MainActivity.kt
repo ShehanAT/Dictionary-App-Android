@@ -33,6 +33,7 @@ class MainActivity : AppCompatActivity() {
     var definitionList : ArrayList<String> = ArrayList();
     var definitionListStr : String = "";
     var pronunciationBtn : Button? = null;
+    var bookmarkBtn : Button? = null;
 
     companion object {
         private const val REQUEST_CODE_STT = 1
@@ -59,8 +60,6 @@ class MainActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_main)
 
-//        textToSpeechEngine = TextToSpeech(this, this)
-
         apiResponseView = findViewById<TextView>(R.id.apiResponseText)
 
         searchWordTextInput = findViewById<TextInputEditText>(R.id.searchWordTextInput)
@@ -68,6 +67,8 @@ class MainActivity : AppCompatActivity() {
         pronunciationBtn = findViewById<Button>(R.id.pronunciationBtn)
 
         searchButton = findViewById<Button>(R.id.searchButton)
+
+        bookmarkBtn = findViewById<Button>(R.id.bookmarkBtn)
 
         searchWordTextInput!!.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
@@ -96,6 +97,11 @@ class MainActivity : AppCompatActivity() {
             } else {
                 Toast.makeText(this, "Text cannot be empty", Toast.LENGTH_LONG).show()
             }
+        }
+
+        bookmarkBtn!!.setOnClickListener {
+            var wordToBookmark = searchWordTextInput!!.text.toString().trim()
+            // Save words using Supabase(1st option) or Room(2nd option)
         }
 
     }
