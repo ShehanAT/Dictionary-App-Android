@@ -102,8 +102,25 @@ class MainActivity : AppCompatActivity() {
         bookmarkBtn!!.setOnClickListener {
             var wordToBookmark = searchWordTextInput!!.text.toString().trim()
             // Save words using Supabase(1st option) or Room(2nd option)
+
+
         }
 
+    }
+
+    private fun connectToSupabase() {
+        val client = createSupabaseClient(
+            supabaseUrl = "https://id.supabase.co",
+            supabaseKey = "apikey"
+        ) {
+
+            //...
+
+            install(GoTrue) {
+                // settings
+            }
+
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
