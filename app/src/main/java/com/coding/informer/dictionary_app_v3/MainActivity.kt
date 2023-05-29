@@ -21,7 +21,7 @@ import com.android.volley.toolbox.Volley
 import org.json.JSONArray
 import org.json.JSONObject
 import java.util.*
-import kotlin.collections.ArrayList
+import io.github.jan.supabase.createSupabaseClient
 
 class MainActivity : AppCompatActivity() {
     var apiResponseView: TextView? = null;
