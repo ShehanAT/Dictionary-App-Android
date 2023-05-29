@@ -2,7 +2,6 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'kotlin-android-extensions'
-    id "org.jetbrains.kotlin.plugin.serialization" version "$kotlin_version"
 }
 
 android {
@@ -56,5 +55,5 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.7.2'
     implementation 'com.squareup.okhttp3:okhttp:3.6.0'
     implementation 'com.android.volley:volley:1.2.1'
-    implementation 'io.github.jan-tennert.supabase:storage-kt:1.0.0'
+//    implementation 'io.github.jan-tennert.supabase:storage-kt:1.0.0'
 }
