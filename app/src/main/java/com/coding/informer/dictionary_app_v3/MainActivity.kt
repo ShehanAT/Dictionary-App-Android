@@ -22,6 +22,7 @@ import org.json.JSONArray
 import org.json.JSONObject
 import java.util.*
 import io.github.jan.supabase.createSupabaseClient
+import io.github.jan.supabase.storage.Storage
 
 class MainActivity : AppCompatActivity() {
     var apiResponseView: TextView? = null;
@@ -116,9 +117,9 @@ class MainActivity : AppCompatActivity() {
 
             //...
 
-//            install(GoTrue) {
-//                // settings
-//            }
+            install(Storage) {
+                // settings
+            }
 
         }
     }
