@@ -21,7 +21,7 @@ import com.android.volley.toolbox.Volley
 import org.json.JSONArray
 import org.json.JSONObject
 import java.util.*
-//import io.github.jan.supabase.createSupabaseClient
+import io.github.jan.supabase.createSupabaseClient
 
 class MainActivity : AppCompatActivity() {
     var apiResponseView: TextView? = null;
@@ -108,20 +108,20 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-//    private fun connectToSupabase() {
-//        val client = createSupabaseClient(
-//            supabaseUrl = "https://id.supabase.co",
-//            supabaseKey = "apikey"
-//        ) {
-//
-//            //...
-//
+    private fun connectToSupabase() {
+        val client = createSupabaseClient(
+            supabaseUrl = "https://id.supabase.co",
+            supabaseKey = "apikey"
+        ) {
+
+            //...
+
 //            install(GoTrue) {
 //                // settings
 //            }
-//
-//        }
-//    }
+
+        }
+    }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
