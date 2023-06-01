@@ -9,6 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.DictionaryAppV3">
+        <meta-data android:name="com.coding.informer.dictionary_app_v3.supabase_project_url" android:value="${supabase_project_url}" />
+        <meta-data android:name="com.coding.informer.dictionary_app_v3.supabase_project_api_key" android:value="${supabase_project_api_key}" />
         <activity
             android:name=".MainActivity"
             android:exported="true">

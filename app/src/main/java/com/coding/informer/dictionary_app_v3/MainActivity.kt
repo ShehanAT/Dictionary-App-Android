@@ -2,6 +2,8 @@ package com.coding.informer.dictionary_app_v3
 
 import android.app.Activity
 import android.content.Intent
+import android.content.pm.ApplicationInfo
+import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.speech.RecognizerIntent
@@ -12,6 +14,7 @@ import android.util.Log
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.google.android.material.textfield.TextInputEditText
 
 import com.android.volley.Request;
@@ -23,7 +26,10 @@ import org.json.JSONObject
 import java.util.*
 import io.github.jan.supabase.createSupabaseClient
 import io.github.jan.supabase.storage.Storage
+import io.github.jan.supabase.storage.storage
+import kotlinx.coroutines.launch
 
+@Suppress("DEPRECATION")
 class MainActivity : AppCompatActivity() {
     var apiResponseView: TextView? = null;
     var mRequestQueue : RequestQueue? = null;
@@ -35,6 +41,10 @@ class MainActivity : AppCompatActivity() {
     var definitionListStr : String = "";
     var pronunciationBtn : Button? = null;
     var bookmarkBtn : Button? = null;
+
+//    val applicationInfo : ApplicationInfo = application.packageManager.getApplicationInfo(application.packageName, PackageManager.GET_META_DATA)
+//    val supabase_project_url = applicationInfo.metaData["supabase_project_url"].toString()
+//    val supabase_project_api_key = applicationInfo.metaData["supabase_project_api_key"].toString()
 
     companion object {
         private const val REQUEST_CODE_STT = 1
@@ -107,21 +117,34 @@ class MainActivity : AppCompatActivity() {
 
         }
 
+        lifecycleScope.launch {
+            connectToSupabase()
+        }
     }
 
-    private fun connectToSupabase() {
+
+    private suspend fun connectToSupabase() {
+
         val client = createSupabaseClient(
-            supabaseUrl = "https://id.supabase.co",
-            supabaseKey = "apikey"
+            supabaseUrl = BuildConfig.supabase_project_url,
+            supabaseKey = BuildConfig.supabase_project_api_key,
+
         ) {
 
             //...
 
             install(Storage) {
-                // settings
+
             }
 
         }
+
+        client.storage.createBucket(id = "bookmarked_words")
+//        {
+//            public = true
+//            fileSizeLimit = 5.megabytes
+//            author
+//        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -193,15 +216,4 @@ class MainActivity : AppCompatActivity() {
         textToSpeechEngine?.shutdown()
         super.onDestroy()
     }
-//
-//    override fun onInit(status: Int) {
-//        Log.d("TextToSpeech", "TextToSpeech Status: " + status)
-//        if(status == TextToSpeech.SUCCESS) {
-//            val result = textToSpeechEngine!!.setLanguage(Locale.US)
-//
-//            if(result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
-//                Log.e("TextToSpeech", "Language not supported!")
-//            }
-//        }
-//    }
 }

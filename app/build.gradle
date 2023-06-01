@@ -3,6 +3,7 @@ plugins {
     id 'kotlin-android'
 //    id 'kotlin-android-extensions'
     id('org.jetbrains.kotlin.android') apply false
+    id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
 }
 
 android {
@@ -58,4 +59,6 @@ dependencies {
     implementation 'com.android.volley:volley:1.2.1'
     implementation 'io.github.jan-tennert.supabase:storage-kt:1.0.0'
 //    implementation 'io.ktor:ktor-client-cio:2.3.0'
+    implementation 'io.ktor:ktor-client-android:2.3.0'
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.2.0-alpha02'
 }
