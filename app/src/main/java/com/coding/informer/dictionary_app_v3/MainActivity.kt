@@ -25,8 +25,10 @@ import org.json.JSONArray
 import org.json.JSONObject
 import java.util.*
 import io.github.jan.supabase.createSupabaseClient
+import io.github.jan.supabase.storage.BucketApi
 import io.github.jan.supabase.storage.Storage
 import io.github.jan.supabase.storage.storage
+import io.ktor.http.HttpHeaders
 import kotlinx.coroutines.launch
 
 @Suppress("DEPRECATION")
@@ -130,7 +132,7 @@ class MainActivity : AppCompatActivity() {
             supabaseKey = BuildConfig.supabase_project_api_key,
 
         ) {
-
+            HttpHeaders.Authorization
             //...
 
             install(Storage) {
@@ -139,7 +141,10 @@ class MainActivity : AppCompatActivity() {
 
         }
 
-        client.storage.createBucket(id = "bookmarked_words")
+//        client.storage.createBucket(id = "bookmarked_words")
+        val bookmarked_works_bucket : BucketApi = client.storage.get(bucketId = "bookmarked_words")
+        bookmarked_works_bucket.upload("", "sampleWord".toByteArray())
+        Log.d("Supabase Storage: ", bookmarked_works_bucket.toString())
 //        {
 //            public = true
 //            fileSizeLimit = 5.megabytes
