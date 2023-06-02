@@ -25,6 +25,7 @@ import org.json.JSONArray
 import org.json.JSONObject
 import java.util.*
 import io.github.jan.supabase.createSupabaseClient
+import io.github.jan.supabase.gotrue.GoTrue
 import io.github.jan.supabase.storage.BucketApi
 import io.github.jan.supabase.storage.Storage
 import io.github.jan.supabase.storage.storage
@@ -138,12 +139,15 @@ class MainActivity : AppCompatActivity() {
             install(Storage) {
 
             }
+            install(GoTrue) {
+
+            }
 
         }
 
 //        client.storage.createBucket(id = "bookmarked_words")
         val bookmarked_works_bucket : BucketApi = client.storage.get(bucketId = "bookmarked_words")
-        bookmarked_works_bucket.upload("", "sampleWord".toByteArray())
+        bookmarked_works_bucket.upload("/", "sampleWord".toByteArray())
         Log.d("Supabase Storage: ", bookmarked_works_bucket.toString())
 //        {
 //            public = true
