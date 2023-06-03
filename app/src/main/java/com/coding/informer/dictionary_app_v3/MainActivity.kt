@@ -131,7 +131,6 @@ class MainActivity : AppCompatActivity() {
         val client = createSupabaseClient(
             supabaseUrl = BuildConfig.supabase_project_url,
             supabaseKey = BuildConfig.supabase_project_api_key,
-
         ) {
             HttpHeaders.Authorization
             //...
@@ -142,12 +141,11 @@ class MainActivity : AppCompatActivity() {
             install(GoTrue) {
 
             }
-
         }
 
 //        client.storage.createBucket(id = "bookmarked_words")
-        val bookmarked_works_bucket : BucketApi = client.storage.get(bucketId = "bookmarked_words")
-        bookmarked_works_bucket.upload("/", "sampleWord".toByteArray())
+        val bookmarked_works_bucket : BucketApi = client.storage.get(bucketId = "bookmarked-words")
+        bookmarked_works_bucket.upload("words", "sampleWord".toByteArray())
         Log.d("Supabase Storage: ", bookmarked_works_bucket.toString())
 //        {
 //            public = true
