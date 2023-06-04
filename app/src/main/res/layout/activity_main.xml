@@ -95,4 +95,14 @@
         android:layout_marginBottom="1dp"
         android:text="Bookmark" />
 
+    <TextView
+        android:id="@+id/bookmarkedWords"
+        android:layout_width="266dp"
+        android:layout_height="187dp"
+        android:layout_alignBottom="@+id/searchButton"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="145dp"
+        android:layout_marginBottom="-2dp"
+        android:text="TextView" />
+
 </RelativeLayout>

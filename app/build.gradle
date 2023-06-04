@@ -58,9 +58,11 @@ dependencies {
     implementation 'com.squareup.okhttp3:okhttp:3.6.0'
     implementation 'com.android.volley:volley:1.2.1'
     implementation platform('io.github.jan-tennert.supabase:bom:1.0.0')
-    implementation 'io.github.jan-tennert.supabase:storage-kt:1.0.0'
+//    implementation 'io.github.jan-tennert.supabase:storage-kt:1.0.0'
+    implementation 'io.github.jan-tennert.supabase:postgrest-kt:1.0.0'
     implementation 'io.github.jan-tennert.supabase:gotrue-kt:1.0.0'
 //    implementation 'io.ktor:ktor-client-cio:2.3.0'
     implementation 'io.ktor:ktor-client-android:2.3.0'
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.2.0-alpha02'
+    implementation 'org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1'
 }

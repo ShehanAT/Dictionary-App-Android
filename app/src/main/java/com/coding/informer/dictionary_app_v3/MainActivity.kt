@@ -1,5 +1,6 @@
 package com.coding.informer.dictionary_app_v3
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.ApplicationInfo
@@ -26,11 +27,18 @@ import org.json.JSONObject
 import java.util.*
 import io.github.jan.supabase.createSupabaseClient
 import io.github.jan.supabase.gotrue.GoTrue
-import io.github.jan.supabase.storage.BucketApi
-import io.github.jan.supabase.storage.Storage
-import io.github.jan.supabase.storage.storage
+import io.github.jan.supabase.postgrest.Postgrest
+import io.github.jan.supabase.postgrest.postgrest
+import io.github.jan.supabase.postgrest.query.Columns
+import io.github.jan.supabase.postgrest.query.PostgrestBuilder
+import io.github.jan.supabase.postgrest.query.PostgrestResult
+//import io.github.jan.supabase.storage.BucketApi
+//import io.github.jan.supabase.storage.Storage
+//import io.github.jan.supabase.storage.storage
 import io.ktor.http.HttpHeaders
 import kotlinx.coroutines.launch
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.jsonArray
 
 @Suppress("DEPRECATION")
 class MainActivity : AppCompatActivity() {
@@ -44,7 +52,7 @@ class MainActivity : AppCompatActivity() {
     var definitionListStr : String = "";
     var pronunciationBtn : Button? = null;
     var bookmarkBtn : Button? = null;
-
+    var bookmarkedWords : TextView? = null;
 //    val applicationInfo : ApplicationInfo = application.packageManager.getApplicationInfo(application.packageName, PackageManager.GET_META_DATA)
 //    val supabase_project_url = applicationInfo.metaData["supabase_project_url"].toString()
 //    val supabase_project_api_key = applicationInfo.metaData["supabase_project_api_key"].toString()
@@ -69,6 +77,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -83,6 +92,8 @@ class MainActivity : AppCompatActivity() {
         searchButton = findViewById<Button>(R.id.searchButton)
 
         bookmarkBtn = findViewById<Button>(R.id.bookmarkBtn)
+
+        bookmarkedWords = findViewById<TextView>(R.id.bookmarkedWords)
 
         searchWordTextInput!!.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
@@ -132,26 +143,34 @@ class MainActivity : AppCompatActivity() {
             supabaseUrl = BuildConfig.supabase_project_url,
             supabaseKey = BuildConfig.supabase_project_api_key,
         ) {
-            HttpHeaders.Authorization
             //...
 
-            install(Storage) {
+//            install(Storage) {
+//
+//            }
+            install(GoTrue) {
 
             }
-            install(GoTrue) {
+            install(Postgrest) {
 
             }
         }
 
 //        client.storage.createBucket(id = "bookmarked_words")
-        val bookmarked_works_bucket : BucketApi = client.storage.get(bucketId = "bookmarked-words")
-        bookmarked_works_bucket.upload("words", "sampleWord".toByteArray())
-        Log.d("Supabase Storage: ", bookmarked_works_bucket.toString())
-//        {
-//            public = true
-//            fileSizeLimit = 5.megabytes
-//            author
-//        }
+//        val bookmarked_works_bucket : BucketApi = client.storage.get(bucketId = "bookmarked-words")
+//        bookmarked_works_bucket.upload("words", "sampleWord".toByteArray(), true)
+//        bookmarked_works_bucket.update("words", "Second Sample Word".toByteArray(), true)
+//        bookmarked_works_bucket.
+//        Log.d("Supabase Storage: ", bookmarked_works_bucket.toString())
+        var result: PostgrestResult = client.postgrest["bookmarked_words"].select(columns = Columns.list("bookmarked_word"))
+        var bookmarkedWordsStr: String = ""
+        for (bookmarked_word in result.body?.jsonArray!!) {
+            bookmarkedWordsStr += bookmarked_word
+            bookmarkedWordsStr += "\n"
+        }
+        bookmarkedWords?.text = bookmarkedWordsStr
+        Log.d("Supabase-kt Postgrest: ", result.body.toString())
+
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
