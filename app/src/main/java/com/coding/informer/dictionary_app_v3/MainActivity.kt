@@ -39,6 +39,7 @@ import io.ktor.http.HttpHeaders
 import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.jsonArray
+import kotlinx.serialization.json.jsonObject
 
 @Suppress("DEPRECATION")
 class MainActivity : AppCompatActivity() {
@@ -52,10 +53,7 @@ class MainActivity : AppCompatActivity() {
     var definitionListStr : String = "";
     var pronunciationBtn : Button? = null;
     var bookmarkBtn : Button? = null;
-    var bookmarkedWords : TextView? = null;
-//    val applicationInfo : ApplicationInfo = application.packageManager.getApplicationInfo(application.packageName, PackageManager.GET_META_DATA)
-//    val supabase_project_url = applicationInfo.metaData["supabase_project_url"].toString()
-//    val supabase_project_api_key = applicationInfo.metaData["supabase_project_api_key"].toString()
+    var bookmarksPageBtn : Button? = null;
 
     companion object {
         private const val REQUEST_CODE_STT = 1
@@ -93,7 +91,7 @@ class MainActivity : AppCompatActivity() {
 
         bookmarkBtn = findViewById<Button>(R.id.bookmarkBtn)
 
-        bookmarkedWords = findViewById<TextView>(R.id.bookmarkedWords)
+        bookmarksPageBtn = findViewById<Button>(R.id.bookmarksPageBtn)
 
         searchWordTextInput!!.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
@@ -126,50 +124,18 @@ class MainActivity : AppCompatActivity() {
 
         bookmarkBtn!!.setOnClickListener {
             var wordToBookmark = searchWordTextInput!!.text.toString().trim()
-            // Save words using Supabase(1st option) or Room(2nd option)
-
-
-        }
-
-        lifecycleScope.launch {
-            connectToSupabase()
-        }
-    }
-
-
-    private suspend fun connectToSupabase() {
-
-        val client = createSupabaseClient(
-            supabaseUrl = BuildConfig.supabase_project_url,
-            supabaseKey = BuildConfig.supabase_project_api_key,
-        ) {
-            //...
-
-//            install(Storage) {
-//
-//            }
-            install(GoTrue) {
-
-            }
-            install(Postgrest) {
-
+            lifecycleScope.launch {
+                addWordToBookmarkedWordSupabaseTable(wordToBookmark)
             }
         }
 
-//        client.storage.createBucket(id = "bookmarked_words")
-//        val bookmarked_works_bucket : BucketApi = client.storage.get(bucketId = "bookmarked-words")
-//        bookmarked_works_bucket.upload("words", "sampleWord".toByteArray(), true)
-//        bookmarked_works_bucket.update("words", "Second Sample Word".toByteArray(), true)
-//        bookmarked_works_bucket.
-//        Log.d("Supabase Storage: ", bookmarked_works_bucket.toString())
-        var result: PostgrestResult = client.postgrest["bookmarked_words"].select(columns = Columns.list("bookmarked_word"))
-        var bookmarkedWordsStr: String = ""
-        for (bookmarked_word in result.body?.jsonArray!!) {
-            bookmarkedWordsStr += bookmarked_word
-            bookmarkedWordsStr += "\n"
+        bookmarksPageBtn!!.setOnClickListener {
+//            val bookmarkedActivityIntent = Intent(this@MainActivity, BookmarkActivity::class.java)
+//            startActivity(bookmarkedActivityIntent)
+            startActivity(Intent(this, BookmarkActivity::class.java))
+
         }
-        bookmarkedWords?.text = bookmarkedWordsStr
-        Log.d("Supabase-kt Postgrest: ", result.body.toString())
+
 
     }
 
@@ -188,6 +154,31 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    public suspend fun addWordToBookmarkedWordSupabaseTable(wordToAdd: String) {
+        val client = createSupabaseClient(
+            supabaseUrl = BuildConfig.supabase_project_url,
+            supabaseKey = BuildConfig.supabase_project_api_key,
+        ) {
+            install(GoTrue) {
+
+            }
+            install(Postgrest) {
+
+            }
+        }
+
+        var result: PostgrestResult = client.postgrest["bookmarked_words"].insert(
+            value = mapOf("bookmarked_word" to wordToAdd),
+            upsert = true
+        )
+//        var bookmarkedWordsStr: String = ""
+//        for (bookmarked_word in result.body?.jsonArray!!) {
+//            bookmarkedWordsStr += bookmarked_word.jsonObject.get("bookmarked_word")
+//            bookmarkedWordsStr += "\n"
+//        }
+//        bookmarkedWordsList?.text = bookmarkedWordsStr
+        Log.d("Supabase-kt Postgrest: ", result.body.toString())
+    }
     private fun callDictionaryAPI() {
         mRequestQueue = Volley.newRequestQueue(this)
 

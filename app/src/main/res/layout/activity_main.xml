@@ -16,8 +16,8 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginStart="9dp"
-        android:layout_marginTop="78dp"
+        android:layout_marginStart="6dp"
+        android:layout_marginTop="202dp"
         android:hint="Enter word to search" />
 
     <Button
@@ -26,19 +26,19 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="-1dp"
-        android:layout_marginTop="137dp"
+        android:layout_marginStart="13dp"
+        android:layout_marginTop="284dp"
         android:text="Search Word" />
 
     <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="500dp"
+        android:layout_width="wrap_content"
+        android:layout_height="327dp"
         android:layout_below="@+id/searchButton"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="11dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="41dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="31dp"
         tools:context="com.coding.informer.dictionary_app.MainActivity">
@@ -80,8 +80,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="86dp"
-        android:layout_marginEnd="13dp"
+        android:layout_marginTop="214dp"
+        android:layout_marginEnd="10dp"
         android:text="Pronunciation" />
 
     <Button
@@ -95,14 +95,19 @@
         android:layout_marginBottom="1dp"
         android:text="Bookmark" />
 
-    <TextView
-        android:id="@+id/bookmarkedWords"
-        android:layout_width="266dp"
-        android:layout_height="187dp"
-        android:layout_alignBottom="@+id/searchButton"
+    <Button
+        android:id="@+id/bookmarksPageBtn"
+        android:layout_width="162dp"
+        android:layout_height="59dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginEnd="145dp"
-        android:layout_marginBottom="-2dp"
-        android:text="TextView" />
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="11dp"
+        android:layout_marginTop="136dp"
+        android:layout_marginEnd="238dp"
+        android:layout_marginBottom="536dp"
+        android:text="Bookmarks Page" />
+
 
 </RelativeLayout>
