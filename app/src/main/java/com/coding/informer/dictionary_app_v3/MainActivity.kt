@@ -14,6 +14,7 @@ import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import android.widget.*
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.textfield.TextInputEditText
@@ -54,6 +55,7 @@ class MainActivity : AppCompatActivity() {
     var pronunciationBtn : Button? = null;
     var bookmarkBtn : Button? = null;
     var bookmarksPageBtn : Button? = null;
+    var dialogBuilder: AlertDialog.Builder? = null;
 
     companion object {
         private const val REQUEST_CODE_STT = 1
@@ -127,14 +129,15 @@ class MainActivity : AppCompatActivity() {
             lifecycleScope.launch {
                 addWordToBookmarkedWordSupabaseTable(wordToBookmark)
             }
+            Toast.makeText(this, "Bookmarked word $wordToBookmark successfully!", Toast.LENGTH_LONG).show()
         }
 
         bookmarksPageBtn!!.setOnClickListener {
-//            val bookmarkedActivityIntent = Intent(this@MainActivity, BookmarkActivity::class.java)
-//            startActivity(bookmarkedActivityIntent)
             startActivity(Intent(this, BookmarkActivity::class.java))
 
         }
+        dialogBuilder = AlertDialog.Builder(this)
+        dialogBuilder?.setMessage("Definition Modal")?.setTitle("Definition Modal")
 
 
     }
@@ -204,6 +207,10 @@ class MainActivity : AppCompatActivity() {
 //                    val definitionListView = findViewById<RecyclerView>(R.id.definitionList)
                     apiResponseView = findViewById<View>(R.id.apiResponseText) as TextView?
                     apiResponseView?.text = definitionListStr;
+                    var alert: AlertDialog? = dialogBuilder?.create()
+                    alert?.setTitle("Definition Modal")
+                    alert?.setMessage(definitionListStr)
+                    alert?.show()
 
                 } catch (e : Exception) {
                     Log.d("API Response:", "Ran into error while parsing API Response")

@@ -63,13 +63,16 @@
         android:id="@+id/textView"
         android:layout_width="219dp"
         android:layout_height="wrap_content"
+
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginStart="100dp"
         android:layout_marginTop="31dp"
         android:layout_marginEnd="92dp"
+        android:layout_marginBottom="657dp"
         android:text="Dictionary App"
         android:textSize="32dp"
         android:textStyle="bold" />
@@ -91,23 +94,23 @@
         android:layout_alignBottom="@+id/searchButton"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="41dp"
-        android:layout_marginEnd="82dp"
-        android:layout_marginBottom="1dp"
+        android:layout_marginEnd="115dp"
+        android:layout_marginBottom="-1dp"
         android:text="Bookmark" />
 
     <Button
         android:id="@+id/bookmarksPageBtn"
-        android:layout_width="162dp"
-        android:layout_height="59dp"
+        android:layout_width="136dp"
+        android:layout_height="45dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="11dp"
-        android:layout_marginTop="136dp"
-        android:layout_marginEnd="238dp"
-        android:layout_marginBottom="536dp"
-        android:text="Bookmarks Page" />
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="139dp"
+        android:layout_marginEnd="243dp"
+        android:layout_marginBottom="547dp"
+        android:text="BookmarksPage" />
 
 
 </RelativeLayout>
