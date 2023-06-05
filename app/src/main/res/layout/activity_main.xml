@@ -16,8 +16,8 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginStart="6dp"
-        android:layout_marginTop="202dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="367dp"
         android:hint="Enter word to search" />
 
     <Button
@@ -26,56 +26,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="13dp"
-        android:layout_marginTop="284dp"
+        android:layout_marginStart="9dp"
+        android:layout_marginTop="433dp"
         android:text="Search Word" />
-
-    <ScrollView
-        android:layout_width="wrap_content"
-        android:layout_height="327dp"
-        android:layout_below="@+id/searchButton"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="11dp"
-        android:layout_marginTop="41dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="31dp"
-        tools:context="com.coding.informer.dictionary_app.MainActivity">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/apiResponseText"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text=""
-                android:textColor="#000000" />
-
-        </LinearLayout>
-    </ScrollView>
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="219dp"
-        android:layout_height="wrap_content"
-
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginStart="100dp"
-        android:layout_marginTop="31dp"
-        android:layout_marginEnd="92dp"
-        android:layout_marginBottom="657dp"
-        android:text="Dictionary App"
-        android:textSize="32dp"
-        android:textStyle="bold" />
 
     <Button
         android:id="@+id/pronunciationBtn"
@@ -83,9 +36,10 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="214dp"
-        android:layout_marginEnd="10dp"
+        android:layout_marginTop="380dp"
+        android:layout_marginEnd="11dp"
         android:text="Pronunciation" />
+
 
     <Button
         android:id="@+id/bookmarkBtn"
@@ -94,23 +48,51 @@
         android:layout_alignBottom="@+id/searchButton"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="41dp"
-        android:layout_marginEnd="115dp"
+        android:layout_marginEnd="110dp"
         android:layout_marginBottom="-1dp"
         android:text="Bookmark" />
 
     <Button
         android:id="@+id/bookmarksPageBtn"
-        android:layout_width="136dp"
-        android:layout_height="45dp"
+        android:layout_width="wrap_content"
+        android:layout_height="65dp"
+        android:layout_alignBottom="@+id/searchButton"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="9dp"
+        android:layout_marginTop="98dp"
+        android:layout_marginEnd="234dp"
+        android:layout_marginBottom="318dp"
+        android:text="Bookmarks Page" />
+
+    <TextView
+        android:id="@+id/app_title"
+        android:layout_width="151dp"
+        android:layout_height="22dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="139dp"
-        android:layout_marginEnd="243dp"
-        android:layout_marginBottom="547dp"
-        android:text="BookmarksPage" />
+        android:layout_marginStart="134dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="126dp"
+        android:layout_marginBottom="669dp"
+        android:text="Dictionary App" />
+
+    <Button
+        android:id="@+id/historyPageBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="65dp"
+        android:layout_alignBottom="@+id/searchButton"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="191dp"
+        android:layout_marginTop="98dp"
+        android:layout_marginEnd="52dp"
+        android:layout_marginBottom="315dp"
+        android:text="History Page" />
 
 
 </RelativeLayout>

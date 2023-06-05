@@ -83,7 +83,7 @@ class MainActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_main)
 
-        apiResponseView = findViewById<TextView>(R.id.apiResponseText)
+//        apiResponseView = findViewById<TextView>(R.id.apiResponseText)
 
         searchWordTextInput = findViewById<TextInputEditText>(R.id.searchWordTextInput)
 
@@ -204,9 +204,7 @@ class MainActivity : AppCompatActivity() {
                         }
                     }
                     Log.d("Definition List:", definitionList.toList().toString())
-//                    val definitionListView = findViewById<RecyclerView>(R.id.definitionList)
-                    apiResponseView = findViewById<View>(R.id.apiResponseText) as TextView?
-                    apiResponseView?.text = definitionListStr;
+//                    val definitionListView = findViewById<RecyclerView>(R.id.definitionList
                     var alert: AlertDialog? = dialogBuilder?.create()
                     alert?.setTitle("Definition Modal")
                     alert?.setMessage(definitionListStr)
