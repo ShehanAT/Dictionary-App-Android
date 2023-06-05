@@ -195,18 +195,18 @@ class MainActivity : AppCompatActivity() {
 // (((jsonResponse.get(0) as JSONObject).getJSONArray("meanings").get(0) as JSONObject).getJSONArray("definitions").get(0) as JSONObject).getString("definition")
                 val meaningsObj = (jsonResponse.get(0) as JSONObject).getJSONArray("meanings");
                 try{
-                    definitionListStr = "";
+                    definitionListStr = "\n";
                     for (i  in 0 until meaningsObj.length()) {
-                        val meaningsObj2 = (meaningsObj.get(i) as JSONObject).getJSONArray("definitions");
-                        for ( j in 0 until meaningsObj2.length()) {
+                        val meaningsObj2 =
+                            (meaningsObj.get(i) as JSONObject).getJSONArray("definitions");
+                        for (j in 0 until meaningsObj2.length()) {
                             var defObj = (meaningsObj2.get(j) as JSONObject)
                             definitionListStr += "* " + (defObj.getString("definition")) + "\n";
                         }
                     }
-                    Log.d("Definition List:", definitionList.toList().toString())
-//                    val definitionListView = findViewById<RecyclerView>(R.id.definitionList
+
                     var alert: AlertDialog? = dialogBuilder?.create()
-                    alert?.setTitle("Definition Modal")
+                    alert?.setTitle("Definition: " + searchWord)
                     alert?.setMessage(definitionListStr)
                     alert?.show()
 
