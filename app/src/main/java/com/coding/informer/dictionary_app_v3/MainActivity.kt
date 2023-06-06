@@ -2,6 +2,7 @@ package com.coding.informer.dictionary_app_v3
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
@@ -188,7 +189,7 @@ class MainActivity : AppCompatActivity() {
         mStringRequest = StringRequest(
             Request.Method.GET, Api.DICTIONARY_BASE_URL + "/" + searchWord,
             { response ->
-                Toast.makeText(applicationContext, "Search word: " + searchWord, Toast.LENGTH_LONG)
+                Toast.makeText(applicationContext, "Search word: $searchWord", Toast.LENGTH_LONG)
                     .show()
                 val jsonResponse = JSONArray(response);
 //Syntax for traversing jsonResponse in order to extract definitions:
@@ -206,7 +207,11 @@ class MainActivity : AppCompatActivity() {
                     }
 
                     var alert: AlertDialog? = dialogBuilder?.create()
-                    alert?.setTitle("Definition: " + searchWord)
+                    alert?.setCancelable(true)
+//                    alert.setNegativeButton("Close", DialogInterface.OnClickListener() {
+//
+//                    })
+                    alert?.setTitle("Definition: $searchWord")
                     alert?.setMessage(definitionListStr)
                     alert?.show()
 
