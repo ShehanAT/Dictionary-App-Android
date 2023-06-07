@@ -84,8 +84,6 @@ class MainActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_main)
 
-//        apiResponseView = findViewById<TextView>(R.id.apiResponseText)
-
         searchWordTextInput = findViewById<TextInputEditText>(R.id.searchWordTextInput)
 
         pronunciationBtn = findViewById<Button>(R.id.pronunciationBtn)
@@ -110,12 +108,9 @@ class MainActivity : AppCompatActivity() {
 
         pronunciationBtn!!.setOnClickListener {
             val text = searchWordTextInput!!.text.toString().trim();
-//            tts = tts ?: TextToSpeech.createOrThrow(applicationContext)
-
 
             if (text.isNotEmpty()) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-//                    textToSpeechEngine!!.speak(text, TextToSpeech.QUEUE_FLUSH, null)
                     textToSpeechEngine!!.speak(text, TextToSpeech.QUEUE_FLUSH, null, "tts1")
                 } else {
                     textToSpeechEngine!!.speak(text, TextToSpeech.QUEUE_FLUSH, null)
@@ -151,7 +146,6 @@ class MainActivity : AppCompatActivity() {
                     val result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
                     result?.let {
                         val recognizedText = it[0]
-//                        et_text_input.setText(recognizedText)
                     }
                 }
             }
@@ -175,12 +169,7 @@ class MainActivity : AppCompatActivity() {
             value = mapOf("bookmarked_word" to wordToAdd),
             upsert = true
         )
-//        var bookmarkedWordsStr: String = ""
-//        for (bookmarked_word in result.body?.jsonArray!!) {
-//            bookmarkedWordsStr += bookmarked_word.jsonObject.get("bookmarked_word")
-//            bookmarkedWordsStr += "\n"
-//        }
-//        bookmarkedWordsList?.text = bookmarkedWordsStr
+
         Log.d("Supabase-kt Postgrest: ", result.body.toString())
     }
     private fun callDictionaryAPI() {
@@ -208,9 +197,6 @@ class MainActivity : AppCompatActivity() {
 
                     var alert: AlertDialog? = dialogBuilder?.create()
                     alert?.setCancelable(true)
-//                    alert.setNegativeButton("Close", DialogInterface.OnClickListener() {
-//
-//                    })
                     alert?.setTitle("Definition: $searchWord")
                     alert?.setMessage(definitionListStr)
                     alert?.show()
@@ -218,12 +204,6 @@ class MainActivity : AppCompatActivity() {
                 } catch (e : Exception) {
                     Log.d("API Response:", "Ran into error while parsing API Response")
                 }
-
-//                for (JSONObject defObj : (((jsonResponse.get(0) as JSONObject).getJSONArray("meanings").get(0) as JSONObject).getJSONArray("definitions").get(0) as JSONObject)) {
-//
-//                }
-
-
                 Log.d("API Response", response)
 
             }
