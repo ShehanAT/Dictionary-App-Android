@@ -1,11 +1,12 @@
 package com.coding.informer.dictionary_app_v3
 
+//import io.github.jan.supabase.storage.BucketApi
+//import io.github.jan.supabase.storage.Storage
+//import io.github.jan.supabase.storage.storage
+
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.content.DialogInterface
 import android.content.Intent
-import android.content.pm.ApplicationInfo
-import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.speech.RecognizerIntent
@@ -13,35 +14,27 @@ import android.speech.tts.TextToSpeech
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
-import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import com.google.android.material.textfield.TextInputEditText
-
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.StringRequest;
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.android.volley.Request
+import com.android.volley.RequestQueue
+import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
-import org.json.JSONArray
-import org.json.JSONObject
-import java.util.*
+import com.google.android.material.textfield.TextInputEditText
 import io.github.jan.supabase.createSupabaseClient
 import io.github.jan.supabase.gotrue.GoTrue
 import io.github.jan.supabase.postgrest.Postgrest
 import io.github.jan.supabase.postgrest.postgrest
-import io.github.jan.supabase.postgrest.query.Columns
-import io.github.jan.supabase.postgrest.query.PostgrestBuilder
 import io.github.jan.supabase.postgrest.query.PostgrestResult
-//import io.github.jan.supabase.storage.BucketApi
-//import io.github.jan.supabase.storage.Storage
-//import io.github.jan.supabase.storage.storage
-import io.ktor.http.HttpHeaders
 import kotlinx.coroutines.launch
-import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.jsonArray
-import kotlinx.serialization.json.jsonObject
+import org.json.JSONArray
+import org.json.JSONObject
+import java.util.*
+
 
 @Suppress("DEPRECATION")
 class MainActivity : AppCompatActivity() {
@@ -136,6 +129,13 @@ class MainActivity : AppCompatActivity() {
         dialogBuilder?.setMessage("Definition Modal")?.setTitle("Definition Modal")
 
 
+        val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
+        recyclerView.addItemDecoration(SimpleItemDecoration(this))
+        val layoutManager = LinearLayoutManager(this@MainActivity)
+        recyclerView.layoutManager = layoutManager
+        val posts: List<WordObject>? = returnListItems()
+        val adapter = RecyclerViewAdapter(this@MainActivity, posts!!)
+        recyclerView.adapter = adapter
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -222,5 +222,16 @@ class MainActivity : AppCompatActivity() {
     override fun onDestroy() {
         textToSpeechEngine?.shutdown()
         super.onDestroy()
+    }
+
+    private fun returnListItems(): List<WordObject>? {
+        val items: MutableList<WordObject> = ArrayList<WordObject>()
+        items.add(WordObject("Ricardo KaKa"))
+        items.add(WordObject("Cristiano Ronaldo"))
+        items.add(WordObject("Lionel Messi"))
+        items.add(WordObject("Cristiano Ronaldo"))
+        items.add(WordObject("Luca Modric"))
+        items.add(WordObject("Haven't decided yet"))
+        return items
     }
 }
