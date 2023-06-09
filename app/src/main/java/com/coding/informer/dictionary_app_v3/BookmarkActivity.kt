@@ -144,7 +144,7 @@ class BookmarkActivity : AppCompatActivity() {
 
 
     private fun returnListItems(): List<WordObject>? {
-        var bookmarkedJSONArray : JSONArray? = callDictionaryAPI()
+        var bookmarkedJSONArray : JSONArray? = callDictionaryAPI() // <- Make this method await()
         val items: MutableList<WordObject> = ArrayList<WordObject>()
         for (i  in 0 until bookmarkedJSONArray?.length()!!) {
                         val meaningsObj2 =
