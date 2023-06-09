@@ -69,8 +69,15 @@ class BookmarkActivity : AppCompatActivity() {
         recyclerView.addItemDecoration(SimpleItemDecoration(this))
         val layoutManager = LinearLayoutManager(this@BookmarkActivity)
         recyclerView.layoutManager = layoutManager
-        val posts: List<WordObject>? = returnListItems()
-        val adapter = RecyclerViewAdapter(this@BookmarkActivity, posts!!)
+
+        val defaultItems: MutableList<WordObject>? = ArrayList<WordObject>()
+        defaultItems?.add(WordObject("Word1"))
+        defaultItems?.add(WordObject("Word2"))
+        defaultItems?.add(WordObject("Word3"))
+        defaultItems?.add(WordObject("Word4"))
+        defaultItems?.add(WordObject("Word5"))
+
+        val adapter = RecyclerViewAdapter(this@BookmarkActivity, defaultItems!!)
         recyclerView.adapter = adapter
     }
 
@@ -90,15 +97,24 @@ class BookmarkActivity : AppCompatActivity() {
 
         var result: PostgrestResult = client.postgrest["bookmarked_words"].select(columns = Columns.list("bookmarked_word"))
         var bookmarkedWordsStr: String = ""
+        val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
+
+        val items: MutableList<WordObject> = ArrayList<WordObject>()
+
         for (bookmarked_word in result.body?.jsonArray!!) {
-            bookmarkedWordsStr += bookmarked_word.jsonObject.get("bookmarked_word")
-            bookmarkedWordsStr += "\n"
+            items?.add(WordObject(bookmarked_word.jsonObject.get("bookmarked_word").toString().replace("\"", "")))
+//            bookmarkedWordsStr += bookmarked_word.jsonObject.get("bookmarked_word")
+//            bookmarkedWordsStr += "\n"
         }
+
+        val adapter = RecyclerViewAdapter(this@BookmarkActivity, items!!)
+        recyclerView.adapter = adapter
         bookmarkedWordsList?.text = bookmarkedWordsStr
         Log.d("Supabase-kt Postgrest: ", result.body.toString())
     }
 
     private fun callDictionaryAPI(): JSONArray? {
+
         mRequestQueue = Volley.newRequestQueue(this)
         var responseJSONArray : JSONArray? = null;
         mStringRequest = StringRequest(
@@ -131,6 +147,13 @@ class BookmarkActivity : AppCompatActivity() {
 //                } catch (e : Exception) {
 //                    Log.d("API Response:", "Ran into error while parsing API Response")
 //                }
+//                val defaultItems: MutableList<WordObject>? = ArrayList<WordObject>()
+//                defaultItems?.add(WordObject("Word1"))
+//                defaultItems?.add(WordObject("Word2"))
+//                defaultItems?.add(WordObject("Word3"))
+//                defaultItems?.add(WordObject("Word4"))
+//                defaultItems?.add(WordObject("Word5"))
+//                posts = defaultItems
 
                 Log.d("API Response", response)
             }
@@ -143,15 +166,16 @@ class BookmarkActivity : AppCompatActivity() {
     }
 
 
-    private fun returnListItems(): List<WordObject>? {
+    private fun returnListItems() {
+
         var bookmarkedJSONArray : JSONArray? = callDictionaryAPI() // <- Make this method await()
-        val items: MutableList<WordObject> = ArrayList<WordObject>()
+
         for (i  in 0 until bookmarkedJSONArray?.length()!!) {
                         val meaningsObj2 =
                             (bookmarkedJSONArray.get(i) as JSONObject).getJSONArray("definitions");
                         for (j in 0 until meaningsObj2.length()) {
                             var defObj = (meaningsObj2.get(j) as JSONObject)
-                            items.add(WordObject(defObj.getString("definition")))
+//                            items.add(WordObject(defObj.getString("definition")))
 //                            definitionListStr += "* " + (defObj.getString("definition")) + "\n";
                         }
                     }
@@ -162,6 +186,5 @@ class BookmarkActivity : AppCompatActivity() {
 //        items.add(WordObject("Cristiano Ronaldo"))
 //        items.add(WordObject("Luca Modric"))
 //        items.add(WordObject("Haven't decided yet"))
-        return items
     }
 }
