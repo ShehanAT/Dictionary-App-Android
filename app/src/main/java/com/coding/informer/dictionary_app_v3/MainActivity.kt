@@ -129,13 +129,7 @@ class MainActivity : AppCompatActivity() {
         dialogBuilder?.setMessage("Definition Modal")?.setTitle("Definition Modal")
 
 
-        val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
-        recyclerView.addItemDecoration(SimpleItemDecoration(this))
-        val layoutManager = LinearLayoutManager(this@MainActivity)
-        recyclerView.layoutManager = layoutManager
-        val posts: List<WordObject>? = returnListItems()
-        val adapter = RecyclerViewAdapter(this@MainActivity, posts!!)
-        recyclerView.adapter = adapter
+
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -222,16 +216,5 @@ class MainActivity : AppCompatActivity() {
     override fun onDestroy() {
         textToSpeechEngine?.shutdown()
         super.onDestroy()
-    }
-
-    private fun returnListItems(): List<WordObject>? {
-        val items: MutableList<WordObject> = ArrayList<WordObject>()
-        items.add(WordObject("Ricardo KaKa"))
-        items.add(WordObject("Cristiano Ronaldo"))
-        items.add(WordObject("Lionel Messi"))
-        items.add(WordObject("Cristiano Ronaldo"))
-        items.add(WordObject("Luca Modric"))
-        items.add(WordObject("Haven't decided yet"))
-        return items
     }
 }
