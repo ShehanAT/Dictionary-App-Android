@@ -51,8 +51,6 @@ class BookmarkActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_bookmark)
 
-        bookmarkedWordsList = findViewById<TextView>(R.id.bookmarkedWordsList)
-
         bookmarksPageBtn = findViewById<Button>(R.id.bookmarksPageBtn)
 
         mainPageBtn = findViewById<Button>(R.id.mainPageBtn)
