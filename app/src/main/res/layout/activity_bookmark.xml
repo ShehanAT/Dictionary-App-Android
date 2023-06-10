@@ -15,20 +15,24 @@
         android:text="Recycler View"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bookmarkedWordsTitle" />
+        app:layout_constraintTop_toBottomOf="@+id/bookmarkedWordsTitle"
+        app:layout_constraintVertical_bias="0.962" />
 
     <TextView
         android:id="@+id/bookmarkedWordsTitle"
         android:layout_width="259dp"
         android:layout_height="33dp"
-        android:layout_marginTop="108dp"
         android:text="Bookmarked Words"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.105"
+        app:layout_constraintHorizontal_bias="0.355"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.146" />
 
     <Button
         android:id="@+id/mainPageBtn"
@@ -37,8 +41,8 @@
         android:text="Back To Main Page"
         app:layout_constraintBottom_toTopOf="@+id/bookmarkedWordsTitle"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.072"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.243" />
+        app:layout_constraintVertical_bias="0.089" />
 </androidx.constraintlayout.widget.ConstraintLayout>
