@@ -13,7 +13,8 @@ internal class RecyclerViewAdapter(context: Context?, private val itemList: List
     }
 
     override fun onBindViewHolder(holder: RecyclerViewHolders, position: Int) {
-        holder.awardTitle.setText(itemList[position].word)
+        holder.wordText.setText(itemList[position].word)
+        holder.wordAddedDate.setText(itemList[position].dateCreated)
     }
 
     override fun getItemCount(): Int {

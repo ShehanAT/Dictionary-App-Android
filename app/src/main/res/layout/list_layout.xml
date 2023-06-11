@@ -7,7 +7,7 @@
     android:background="@drawable/background_selector"
     android:padding="16dp">
     <TextView
-        android:id="@+id/awardTitle"
+        android:id="@+id/wordText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -18,13 +18,13 @@
         android:id="@+id/awardYear"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/awardTitle"
-        android:layout_alignStart="@+id/awardTitle"
+        android:layout_below="@+id/wordText"
+        android:layout_alignStart="@+id/wordText"
         android:layout_marginTop="20dp"
         android:text="New Text"
         android:textColor="#000" />
     <TextView
-        android:id="@+id/playerName"
+        android:id="@+id/wordAddedDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"

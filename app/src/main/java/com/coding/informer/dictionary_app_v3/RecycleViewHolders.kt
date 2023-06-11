@@ -15,9 +15,9 @@ import org.json.JSONObject
 
 internal class RecyclerViewHolders(itemView: View) : RecyclerView.ViewHolder(itemView),
     View.OnClickListener {
-    var awardTitle: TextView
+    var wordText: TextView
     var awardYear: TextView
-    var player: TextView
+    var wordAddedDate: TextView
     private val selectedItems = SparseBooleanArray()
     var mRequestQueue : RequestQueue? = null;
     var mStringRequest : StringRequest? = null;
@@ -26,9 +26,9 @@ internal class RecyclerViewHolders(itemView: View) : RecyclerView.ViewHolder(ite
 
     init {
         itemView.setOnClickListener(this)
-        awardTitle = itemView.findViewById(R.id.awardTitle)
+        wordText = itemView.findViewById(R.id.wordText)
         awardYear = itemView.findViewById(R.id.awardYear)
-        player = itemView.findViewById(R.id.playerName)
+        wordAddedDate = itemView.findViewById(R.id.wordAddedDate)
     }
 
     override fun onClick(view: View) {
@@ -37,7 +37,7 @@ internal class RecyclerViewHolders(itemView: View) : RecyclerView.ViewHolder(ite
             view.isSelected = false
         } else {
             Log.d("RecyclerView Clicked: ", "RecyclerView Item Clicked!")
-            callDictionaryAPI(this.awardTitle.getText().toString())
+            callDictionaryAPI(this.wordText.getText().toString())
             selectedItems.put(adapterPosition, true)
             view.isSelected = true
         }

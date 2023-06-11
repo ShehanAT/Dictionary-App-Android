@@ -69,11 +69,11 @@ class BookmarkActivity : AppCompatActivity() {
         recyclerView.layoutManager = layoutManager
 
         val defaultItems: MutableList<WordObject>? = ArrayList<WordObject>()
-        defaultItems?.add(WordObject("Word1"))
-        defaultItems?.add(WordObject("Word2"))
-        defaultItems?.add(WordObject("Word3"))
-        defaultItems?.add(WordObject("Word4"))
-        defaultItems?.add(WordObject("Word5"))
+        defaultItems?.add(WordObject("Word1","Null"))
+        defaultItems?.add(WordObject("Word2","Null"))
+        defaultItems?.add(WordObject("Word3","Null"))
+        defaultItems?.add(WordObject("Word4","Null"))
+        defaultItems?.add(WordObject("Word5","Null"))
 
         val adapter = RecyclerViewAdapter(this@BookmarkActivity, defaultItems!!)
         recyclerView.adapter = adapter
@@ -93,14 +93,14 @@ class BookmarkActivity : AppCompatActivity() {
             }
         }
 
-        var result: PostgrestResult = client.postgrest["bookmarked_words"].select(columns = Columns.list("bookmarked_word"))
+        var result: PostgrestResult = client.postgrest["bookmarked_words"].select(columns = Columns.list("bookmarked_word", "created_at"))
         var bookmarkedWordsStr: String = ""
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
 
         val items: MutableList<WordObject> = ArrayList<WordObject>()
 
         for (bookmarked_word in result.body?.jsonArray!!) {
-            items?.add(WordObject(bookmarked_word.jsonObject.get("bookmarked_word").toString().replace("\"", "")))
+            items?.add(WordObject(bookmarked_word.jsonObject.get("bookmarked_word").toString().replace("\"", ""), bookmarked_word.jsonObject.get("created_at").toString()))
         }
 
         val adapter = RecyclerViewAdapter(this@BookmarkActivity, items!!)

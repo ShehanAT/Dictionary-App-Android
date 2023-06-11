@@ -18,7 +18,11 @@ import io.github.jan.supabase.postgrest.query.PostgrestResult
 import kotlinx.coroutines.launch
 import kotlinx.serialization.json.jsonArray
 import kotlinx.serialization.json.jsonObject
+import java.sql.Timestamp
+import java.text.DateFormat
+import java.text.SimpleDateFormat
 import java.util.ArrayList
+import java.util.Date
 
 class HistoryActivity: AppCompatActivity() {
     var historyList : TextView? = null;
@@ -73,14 +77,17 @@ class HistoryActivity: AppCompatActivity() {
         val layoutManager = LinearLayoutManager(this@HistoryActivity)
         recyclerView.layoutManager = layoutManager
 
-        var result: PostgrestResult = client.postgrest["word_history"].select(columns = Columns.list("word"))
+        var result: PostgrestResult = client.postgrest["word_history"].select(columns = Columns.list("word", "created_at"))
         var historyWordsStr: String = ""
 
 
         val items: MutableList<WordObject> = ArrayList<WordObject>()
-
+//        val date_formatter: DateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+//        var formatted_date: Date? = null;
         for (history_word in result.body?.jsonArray!!) {
-            items?.add(WordObject(history_word.jsonObject.get("word").toString().replace("\"", "")))
+            val formatted_date: Date = SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse(history_word.jsonObject.get("created_at").toString().replace("T", " ").replace("\"", "").slice(IntRange(0, 19)))
+//            formatted_date = date_formatter.parse(history_word.jsonObject.get("created_at").toString())
+            items?.add(WordObject(history_word.jsonObject.get("word").toString().replace("\"", ""), formatted_date.toString()))
         }
 
         val adapter = RecyclerViewAdapter(this@HistoryActivity, items!!)
