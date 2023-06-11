@@ -49,6 +49,7 @@ class MainActivity : AppCompatActivity() {
     var pronunciationBtn : Button? = null;
     var bookmarkBtn : Button? = null;
     var bookmarksPageBtn : Button? = null;
+    var historyPageBtn : Button? = null;
     var dialogBuilder: AlertDialog.Builder? = null;
 
     companion object {
@@ -87,6 +88,8 @@ class MainActivity : AppCompatActivity() {
 
         bookmarksPageBtn = findViewById<Button>(R.id.bookmarksPageBtn)
 
+        historyPageBtn = findViewById<Button>(R.id.historyPageBtn)
+
         searchWordTextInput!!.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
@@ -96,6 +99,9 @@ class MainActivity : AppCompatActivity() {
         })
 
         searchButton!!.setOnClickListener {
+            lifecycleScope.launch {
+                addWordToHistorySupabaseTable(searchWord!!);
+            }
             callDictionaryAPI();
         }
 
@@ -125,6 +131,11 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(this, BookmarkActivity::class.java))
 
         }
+
+        historyPageBtn!!.setOnClickListener {
+            startActivity(Intent(this, HistoryActivity::class.java))
+        }
+
         dialogBuilder = AlertDialog.Builder(this)
         dialogBuilder?.setMessage("Definition Modal")?.setTitle("Definition Modal")
 
@@ -166,6 +177,28 @@ class MainActivity : AppCompatActivity() {
 
         Log.d("Supabase-kt Postgrest: ", result.body.toString())
     }
+
+    public suspend fun addWordToHistorySupabaseTable(word: String) {
+        val client = createSupabaseClient(
+            supabaseUrl = BuildConfig.supabase_project_url,
+            supabaseKey = BuildConfig.supabase_project_api_key,
+        ) {
+            install(GoTrue) {
+
+            }
+            install(Postgrest) {
+
+            }
+        }
+
+        var result: PostgrestResult = client.postgrest["word_history"].insert(
+            value = mapOf("word" to word),
+            upsert = true
+        )
+
+        Log.d("Supabase-kt Postgrest: ", result.body.toString())
+    }
+
     private fun callDictionaryAPI() {
         mRequestQueue = Volley.newRequestQueue(this)
 

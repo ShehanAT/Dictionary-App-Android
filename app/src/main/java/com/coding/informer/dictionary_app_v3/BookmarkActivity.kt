@@ -101,8 +101,6 @@ class BookmarkActivity : AppCompatActivity() {
 
         for (bookmarked_word in result.body?.jsonArray!!) {
             items?.add(WordObject(bookmarked_word.jsonObject.get("bookmarked_word").toString().replace("\"", "")))
-//            bookmarkedWordsStr += bookmarked_word.jsonObject.get("bookmarked_word")
-//            bookmarkedWordsStr += "\n"
         }
 
         val adapter = RecyclerViewAdapter(this@BookmarkActivity, items!!)
@@ -122,36 +120,8 @@ class BookmarkActivity : AppCompatActivity() {
                     .show()
                 val jsonResponse = JSONArray(response);
 //Syntax for traversing jsonResponse in order to extract definitions:
-// (((jsonResponse.get(0) as JSONObject).getJSONArray("meanings").get(0) as JSONObject).getJSONArray("definitions").get(0) as JSONObject).getString("definition")
                 val meaningsObj = (jsonResponse.get(0) as JSONObject).getJSONArray("meanings");
                 responseJSONArray = meaningsObj
-//                try{
-//                    definitionListStr = "\n";
-//                    for (i  in 0 until meaningsObj.length()) {
-//                        val meaningsObj2 =
-//                            (meaningsObj.get(i) as JSONObject).getJSONArray("definitions");
-//                        for (j in 0 until meaningsObj2.length()) {
-//                            var defObj = (meaningsObj2.get(j) as JSONObject)
-//                            definitionListStr += "* " + (defObj.getString("definition")) + "\n";
-//                        }
-//                    }
-//
-//                    var alert: AlertDialog? = dialogBuilder?.create()
-//                    alert?.setCancelable(true)
-//                    alert?.setTitle("Definition: $searchWord")
-//                    alert?.setMessage(definitionListStr)
-//                    alert?.show()
-//
-//                } catch (e : Exception) {
-//                    Log.d("API Response:", "Ran into error while parsing API Response")
-//                }
-//                val defaultItems: MutableList<WordObject>? = ArrayList<WordObject>()
-//                defaultItems?.add(WordObject("Word1"))
-//                defaultItems?.add(WordObject("Word2"))
-//                defaultItems?.add(WordObject("Word3"))
-//                defaultItems?.add(WordObject("Word4"))
-//                defaultItems?.add(WordObject("Word5"))
-//                posts = defaultItems
 
                 Log.d("API Response", response)
             }
@@ -173,16 +143,7 @@ class BookmarkActivity : AppCompatActivity() {
                             (bookmarkedJSONArray.get(i) as JSONObject).getJSONArray("definitions");
                         for (j in 0 until meaningsObj2.length()) {
                             var defObj = (meaningsObj2.get(j) as JSONObject)
-//                            items.add(WordObject(defObj.getString("definition")))
-//                            definitionListStr += "* " + (defObj.getString("definition")) + "\n";
                         }
                     }
-
-
-//        items.add(WordObject("Cristiano Ronaldo"))
-//        items.add(WordObject("Lionel Messi"))
-//        items.add(WordObject("Cristiano Ronaldo"))
-//        items.add(WordObject("Luca Modric"))
-//        items.add(WordObject("Haven't decided yet"))
     }
 }
