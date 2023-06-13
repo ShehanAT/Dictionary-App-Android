@@ -82,11 +82,10 @@ class HistoryActivity: AppCompatActivity() {
 
 
         val items: MutableList<WordObject> = ArrayList<WordObject>()
-//        val date_formatter: DateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
-//        var formatted_date: Date? = null;
+
         for (history_word in result.body?.jsonArray!!) {
             val formatted_date: Date = SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse(history_word.jsonObject.get("created_at").toString().replace("T", " ").replace("\"", "").slice(IntRange(0, 19)))
-//            formatted_date = date_formatter.parse(history_word.jsonObject.get("created_at").toString())
+
             items?.add(WordObject(history_word.jsonObject.get("word").toString().replace("\"", ""), formatted_date.toString()))
         }
 

@@ -32,7 +32,9 @@ import kotlinx.serialization.json.jsonArray
 import kotlinx.serialization.json.jsonObject
 import org.json.JSONArray
 import org.json.JSONObject
+import java.text.SimpleDateFormat
 import java.util.ArrayList
+import java.util.Date
 
 class BookmarkActivity : AppCompatActivity() {
 
@@ -98,9 +100,13 @@ class BookmarkActivity : AppCompatActivity() {
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
 
         val items: MutableList<WordObject> = ArrayList<WordObject>()
-
+//        for (bookmarked_word in result.body?.jsonArray!!) {
+//            items?.add(WordObject(bookmarked_word.jsonObject.get("bookmarked_word").toString().replace("\"", ""), bookmarked_word.jsonObject.get("created_at").toString()))
+//        }
         for (bookmarked_word in result.body?.jsonArray!!) {
-            items?.add(WordObject(bookmarked_word.jsonObject.get("bookmarked_word").toString().replace("\"", ""), bookmarked_word.jsonObject.get("created_at").toString()))
+            val formatted_date: Date = SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse(bookmarked_word.jsonObject.get("created_at").toString().replace("T", " ").replace("\"", "").slice(IntRange(0, 19)))
+
+            items?.add(WordObject(bookmarked_word.jsonObject.get("bookmarked_word").toString().replace("\"", ""), formatted_date.toString()))
         }
 
         val adapter = RecyclerViewAdapter(this@BookmarkActivity, items!!)
