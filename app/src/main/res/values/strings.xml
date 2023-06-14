@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Dictionary-App-V3</string>
+    <string name="facebook_app_id">548019310667544</string>
+    <string name="facebook_client_token">eb21038be1d8f43ff5d4bdda28e0e989</string>
 </resources>

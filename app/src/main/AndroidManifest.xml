@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.coding.informer.dictionary_app_v3">
 
     <application
@@ -11,6 +12,8 @@
         android:theme="@style/Theme.DictionaryAppV3">
         <meta-data android:name="com.coding.informer.dictionary_app_v3.supabase_project_url" android:value="${supabase_project_url}" />
         <meta-data android:name="com.coding.informer.dictionary_app_v3.supabase_project_api_key" android:value="${supabase_project_api_key}" />
+        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
+        <meta-data android:name="com.facebook.sdk.ClientToken" android:value="@string/facebook_client_token"/>
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -35,6 +38,13 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+        <provider android:authorities="com.facebook.app.FacebookContentProvider548019310667544"
+            android:name="com.facebook.FacebookContentProvider"
+            android:exported="true" />
     </application>
-
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="com.google.android.gms.permission.AD_ID" tools:node="remove"/>
+    <queries>
+        <provider android:authorities="com.facebook.katana.provider.PlatformProvider" />
+    </queries>
 </manifest>

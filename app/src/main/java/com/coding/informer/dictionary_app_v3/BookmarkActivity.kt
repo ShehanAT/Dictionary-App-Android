@@ -100,9 +100,7 @@ class BookmarkActivity : AppCompatActivity() {
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
 
         val items: MutableList<WordObject> = ArrayList<WordObject>()
-//        for (bookmarked_word in result.body?.jsonArray!!) {
-//            items?.add(WordObject(bookmarked_word.jsonObject.get("bookmarked_word").toString().replace("\"", ""), bookmarked_word.jsonObject.get("created_at").toString()))
-//        }
+
         for (bookmarked_word in result.body?.jsonArray!!) {
             val formatted_date: Date = SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse(bookmarked_word.jsonObject.get("created_at").toString().replace("T", " ").replace("\"", "").slice(IntRange(0, 19)))
 

@@ -65,4 +65,5 @@ dependencies {
     implementation 'io.ktor:ktor-client-android:2.3.0'
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.2.0-alpha02'
     implementation 'org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1'
+    implementation 'com.facebook.android:facebook-share:latest.release'
 }

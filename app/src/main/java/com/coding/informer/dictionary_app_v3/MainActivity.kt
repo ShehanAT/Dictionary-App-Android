@@ -6,7 +6,9 @@ package com.coding.informer.dictionary_app_v3
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.DialogInterface
 import android.content.Intent
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.speech.RecognizerIntent
@@ -18,12 +20,11 @@ import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
+import com.facebook.share.model.ShareLinkContent
 import com.google.android.material.textfield.TextInputEditText
 import io.github.jan.supabase.createSupabaseClient
 import io.github.jan.supabase.gotrue.GoTrue
@@ -226,6 +227,14 @@ class MainActivity : AppCompatActivity() {
                     alert?.setCancelable(true)
                     alert?.setTitle("Definition: $searchWord")
                     alert?.setMessage(definitionListStr)
+                    alert?.setButton(
+                        AlertDialog.BUTTON_NEUTRAL, "Share",
+                        DialogInterface.OnClickListener { dialog, which ->
+                            val content: ShareLinkContent = ShareLinkContent.Builder()
+                                .setContentUrl(Uri.parse("https://developers.facebook.com"))
+                                .build()
+                            Log.d("Definition Modal", "Share Button Clicked!")
+                        })
                     alert?.show()
 
                 } catch (e : Exception) {
