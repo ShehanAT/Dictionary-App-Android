@@ -25,6 +25,7 @@ import com.android.volley.RequestQueue
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.facebook.share.model.ShareLinkContent
+import com.facebook.share.widget.ShareDialog
 import com.google.android.material.textfield.TextInputEditText
 import io.github.jan.supabase.createSupabaseClient
 import io.github.jan.supabase.gotrue.GoTrue
@@ -228,12 +229,14 @@ class MainActivity : AppCompatActivity() {
                     alert?.setTitle("Definition: $searchWord")
                     alert?.setMessage(definitionListStr)
                     alert?.setButton(
-                        AlertDialog.BUTTON_NEUTRAL, "Share",
+                        AlertDialog.BUTTON_NEUTRAL, "Share To Facebook",
                         DialogInterface.OnClickListener { dialog, which ->
+                            val shareDialog: ShareDialog = ShareDialog(this)
                             val content: ShareLinkContent = ShareLinkContent.Builder()
                                 .setContentUrl(Uri.parse("https://developers.facebook.com"))
                                 .build()
-                            Log.d("Definition Modal", "Share Button Clicked!")
+                            shareDialog.show(content)
+                            Log.d("Definition Modal", "Facebook Share Modal Opened")
                         })
                     alert?.show()
 

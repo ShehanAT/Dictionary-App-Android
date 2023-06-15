@@ -94,5 +94,19 @@
         android:layout_marginBottom="315dp"
         android:text="History Page" />
 
+    <TextView
+        android:id="@+id/facebookShare"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/searchButton"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="96dp"
+        android:layout_marginTop="123dp"
+        android:layout_marginEnd="257dp"
+        android:layout_marginBottom="108dp"
+        android:text="TextView" />
+
 
 </RelativeLayout>
