@@ -8,6 +8,8 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.DialogInterface
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -25,6 +27,8 @@ import com.android.volley.RequestQueue
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.facebook.share.model.ShareLinkContent
+import com.facebook.share.model.SharePhoto
+import com.facebook.share.model.SharePhotoContent
 import com.facebook.share.widget.ShareDialog
 import com.google.android.material.textfield.TextInputEditText
 import io.github.jan.supabase.createSupabaseClient
@@ -233,8 +237,10 @@ class MainActivity : AppCompatActivity() {
                         DialogInterface.OnClickListener { dialog, which ->
                             val shareDialog: ShareDialog = ShareDialog(this)
                             val content: ShareLinkContent = ShareLinkContent.Builder()
-                                .setContentUrl(Uri.parse("https://developers.facebook.com"))
+                                .setContentUrl(Uri.parse("https://api.dictionaryapi.dev/api/v2/entries/en/$searchWord"))
+                                .setQuote("Definition: $searchWord\n$definitionListStr")
                                 .build()
+
                             shareDialog.show(content)
                             Log.d("Definition Modal", "Facebook Share Modal Opened")
                         })
@@ -247,8 +253,12 @@ class MainActivity : AppCompatActivity() {
 
             }
         ) { error ->
-            Toast.makeText(applicationContext, "Ran into error during API Request", Toast.LENGTH_LONG)
-                .show()
+            var errorAlert: AlertDialog? = dialogBuilder?.create()
+            errorAlert?.setCancelable(true)
+            errorAlert?.setTitle("Word Not Found")
+            errorAlert?.setMessage("Sorry, we were not able to find any definitions for that word. Please try again...")
+            errorAlert?.show()
+            Log.d("API Response", "Word not found in Dictionary API")
         }
         mRequestQueue!!.add(mStringRequest)
     }
