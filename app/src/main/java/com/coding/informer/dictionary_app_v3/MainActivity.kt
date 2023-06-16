@@ -22,8 +22,6 @@ import com.android.volley.RequestQueue
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.facebook.share.model.ShareLinkContent
-import com.facebook.share.model.SharePhoto
-import com.facebook.share.model.SharePhotoContent
 import com.facebook.share.widget.ShareDialog
 import com.google.android.material.textfield.TextInputEditText
 import io.github.jan.supabase.createSupabaseClient
@@ -222,7 +220,21 @@ class MainActivity : AppCompatActivity() {
                             definitionListStr += "* " + (defObj.getString("definition")) + "\n";
                         }
                     }
-
+                    dialogBuilder?.setItems(arrayOf<CharSequence>(
+                        "button 1",
+                        "button 2",
+                        "button 3",
+                        "button 4"
+                    ),
+                        DialogInterface.OnClickListener { dialog, which -> // The 'which' argument contains the index position
+                            // of the selected item
+                            when (which) {
+                                0 -> Toast.makeText(this, "clicked 1", Toast.LENGTH_SHORT).show()
+                                1 -> Toast.makeText(this, "clicked 2", Toast.LENGTH_SHORT).show()
+                                2 -> Toast.makeText(this, "clicked 3", Toast.LENGTH_SHORT).show()
+                                3 -> Toast.makeText(this, "clicked 4", Toast.LENGTH_SHORT).show()
+                            }
+                        })
                     var alert: AlertDialog? = dialogBuilder?.create()
                     alert?.setCancelable(true)
                     alert?.setTitle("Definition: $searchWord")
@@ -239,6 +251,22 @@ class MainActivity : AppCompatActivity() {
                             shareDialog.show(content)
                             Log.d("Definition Modal", "Facebook Share Modal Opened")
                         })
+                    alert?.setButton(
+                        AlertDialog.BUTTON_NEUTRAL, "Pronunciation",
+                        DialogInterface.OnClickListener { dialog, which ->
+                            val text = searchWordTextInput!!.text.toString().trim();
+
+                            if (text.isNotEmpty()) {
+                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                                    textToSpeechEngine!!.speak(text, TextToSpeech.QUEUE_FLUSH, null, "tts1")
+                                } else {
+                                    textToSpeechEngine!!.speak(text, TextToSpeech.QUEUE_FLUSH, null)
+                                }
+                            } else {
+                                Toast.makeText(this, "Text cannot be empty", Toast.LENGTH_LONG).show()
+                            }
+                        }
+                    )
                     alert?.show()
 
                 } catch (e : Exception) {

@@ -78,18 +78,6 @@ internal class RecyclerViewHolders(itemView: View) : RecyclerView.ViewHolder(ite
                         selectedItems.delete(adapterPosition)
                         itemView.isSelected = false
                     }
-//                    alert?.setButton(
-//                        AlertDialog.BUTTON_NEUTRAL, "Share To Facebook",
-//                        DialogInterface.OnClickListener { dialog, which ->
-//                            val shareDialog: ShareDialog = ShareDialog(BookmarkActivity)
-//                            val content: ShareLinkContent = ShareLinkContent.Builder()
-//                                .setContentUrl(Uri.parse("https://api.dictionaryapi.dev/api/v2/entries/en/$searchWord"))
-//                                .setQuote("Definition: $searchWord\n$definitionListStr")
-//                                .build()
-//
-//                            shareDialog.show(content)
-//                            Log.d("Definition Modal", "Facebook Share Modal Opened")
-//                        })
                     alert?.show()
 
                 } catch (e : Exception) {
