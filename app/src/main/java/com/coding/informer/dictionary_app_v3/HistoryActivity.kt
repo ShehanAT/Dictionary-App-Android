@@ -39,20 +39,6 @@ class HistoryActivity: AppCompatActivity() {
             startActivity(Intent(this, MainActivity::class.java))
         }
 
-//        val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
-//        recyclerView.addItemDecoration(SimpleItemDecoration(this))
-//        val layoutManager = LinearLayoutManager(this@HistoryActivity)
-//        recyclerView.layoutManager = layoutManager
-//
-//        val defaultItems: MutableList<WordObject>? = ArrayList<WordObject>()
-//        defaultItems?.add(WordObject("Word1"))
-//        defaultItems?.add(WordObject("Word2"))
-//        defaultItems?.add(WordObject("Word3"))
-//        defaultItems?.add(WordObject("Word4"))
-//        defaultItems?.add(WordObject("Word5"))
-//
-//        val adapter = RecyclerViewAdapter(this@HistoryActivity, defaultItems!!)
-//        recyclerView.adapter = adapter
         lifecycleScope.launch {
             fetchHistoryWordsViaSupabase()
         }

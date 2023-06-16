@@ -1,15 +1,10 @@
 package com.coding.informer.dictionary_app_v3
 
-//import io.github.jan.supabase.storage.BucketApi
-//import io.github.jan.supabase.storage.Storage
-//import io.github.jan.supabase.storage.storage
 
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.DialogInterface
 import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle

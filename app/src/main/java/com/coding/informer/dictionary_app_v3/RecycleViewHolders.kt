@@ -1,15 +1,20 @@
 package com.coding.informer.dictionary_app_v3
 
+import android.content.DialogInterface
+import android.net.Uri
 import android.util.Log
 import android.util.SparseBooleanArray
 import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
+import com.facebook.share.model.ShareLinkContent
+import com.facebook.share.widget.ShareDialog
 import org.json.JSONArray
 import org.json.JSONObject
 
@@ -73,6 +78,18 @@ internal class RecyclerViewHolders(itemView: View) : RecyclerView.ViewHolder(ite
                         selectedItems.delete(adapterPosition)
                         itemView.isSelected = false
                     }
+//                    alert?.setButton(
+//                        AlertDialog.BUTTON_NEUTRAL, "Share To Facebook",
+//                        DialogInterface.OnClickListener { dialog, which ->
+//                            val shareDialog: ShareDialog = ShareDialog(BookmarkActivity)
+//                            val content: ShareLinkContent = ShareLinkContent.Builder()
+//                                .setContentUrl(Uri.parse("https://api.dictionaryapi.dev/api/v2/entries/en/$searchWord"))
+//                                .setQuote("Definition: $searchWord\n$definitionListStr")
+//                                .build()
+//
+//                            shareDialog.show(content)
+//                            Log.d("Definition Modal", "Facebook Share Modal Opened")
+//                        })
                     alert?.show()
 
                 } catch (e : Exception) {
