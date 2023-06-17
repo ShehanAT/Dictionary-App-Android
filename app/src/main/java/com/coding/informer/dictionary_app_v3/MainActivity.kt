@@ -5,6 +5,8 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.DialogInterface
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -13,6 +15,7 @@ import android.speech.tts.TextToSpeech
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import android.view.LayoutInflater
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -220,54 +223,65 @@ class MainActivity : AppCompatActivity() {
                             definitionListStr += "* " + (defObj.getString("definition")) + "\n";
                         }
                     }
-                    dialogBuilder?.setItems(arrayOf<CharSequence>(
-                        "button 1",
-                        "button 2",
-                        "button 3",
-                        "button 4"
-                    ),
-                        DialogInterface.OnClickListener { dialog, which -> // The 'which' argument contains the index position
-                            // of the selected item
-                            when (which) {
-                                0 -> Toast.makeText(this, "clicked 1", Toast.LENGTH_SHORT).show()
-                                1 -> Toast.makeText(this, "clicked 2", Toast.LENGTH_SHORT).show()
-                                2 -> Toast.makeText(this, "clicked 3", Toast.LENGTH_SHORT).show()
-                                3 -> Toast.makeText(this, "clicked 4", Toast.LENGTH_SHORT).show()
-                            }
-                        })
-                    var alert: AlertDialog? = dialogBuilder?.create()
-                    alert?.setCancelable(true)
-                    alert?.setTitle("Definition: $searchWord")
-                    alert?.setMessage(definitionListStr)
-                    alert?.setButton(
-                        AlertDialog.BUTTON_NEUTRAL, "Share To Facebook",
-                        DialogInterface.OnClickListener { dialog, which ->
-                            val shareDialog: ShareDialog = ShareDialog(this)
-                            val content: ShareLinkContent = ShareLinkContent.Builder()
-                                .setContentUrl(Uri.parse("https://api.dictionaryapi.dev/api/v2/entries/en/$searchWord"))
-                                .setQuote("Definition: $searchWord\n$definitionListStr")
-                                .build()
+//                    dialogBuilder?.setItems(arrayOf<CharSequence>(
+//                        "button 1",
+//                        "button 2",
+//                        "button 3",
+//                        "button 4"
+//                    ),
+//                        DialogInterface.OnClickListener { dialog, which -> // The 'which' argument contains the index position
+//                            // of the selected item
+//                            when (which) {
+//                                0 -> Toast.makeText(this, "clicked 1", Toast.LENGTH_SHORT).show()
+//                                1 -> Toast.makeText(this, "clicked 2", Toast.LENGTH_SHORT).show()
+//                                2 -> Toast.makeText(this, "clicked 3", Toast.LENGTH_SHORT).show()
+//                                3 -> Toast.makeText(this, "clicked 4", Toast.LENGTH_SHORT).show()
+//                            }
+//                        })
 
-                            shareDialog.show(content)
-                            Log.d("Definition Modal", "Facebook Share Modal Opened")
-                        })
-                    alert?.setButton(
-                        AlertDialog.BUTTON_NEUTRAL, "Pronunciation",
-                        DialogInterface.OnClickListener { dialog, which ->
-                            val text = searchWordTextInput!!.text.toString().trim();
+                    try{
+                        var customDefinitionDialog : CustomDefinitionDialog = CustomDefinitionDialog()
+                        customDefinitionDialog.showDialog(this@MainActivity, "Search word: $searchWord", definitionListStr)
+//                        customDefinitionDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+//                        customDefinitionDialog.show()
+                    } catch (e : Exception) {
+                        Log.d("API Response:", e.toString())
+                    }
 
-                            if (text.isNotEmpty()) {
-                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                                    textToSpeechEngine!!.speak(text, TextToSpeech.QUEUE_FLUSH, null, "tts1")
-                                } else {
-                                    textToSpeechEngine!!.speak(text, TextToSpeech.QUEUE_FLUSH, null)
-                                }
-                            } else {
-                                Toast.makeText(this, "Text cannot be empty", Toast.LENGTH_LONG).show()
-                            }
-                        }
-                    )
-                    alert?.show()
+
+//                    var alert: AlertDialog? = dialogBuilder?.create()
+//                    alert?.setCancelable(true)
+//                    alert?.setTitle("Definition: $searchWord")
+//                    alert?.setMessage(definitionListStr)
+//                    alert?.setButton(
+//                        AlertDialog.BUTTON_NEUTRAL, "Share To Facebook",
+//                        DialogInterface.OnClickListener { dialog, which ->
+//                            val shareDialog: ShareDialog = ShareDialog(this)
+//                            val content: ShareLinkContent = ShareLinkContent.Builder()
+//                                .setContentUrl(Uri.parse("https://api.dictionaryapi.dev/api/v2/entries/en/$searchWord"))
+//                                .setQuote("Definition: $searchWord\n$definitionListStr")
+//                                .build()
+//
+//                            shareDialog.show(content)
+//                            Log.d("Definition Modal", "Facebook Share Modal Opened")
+//                        })
+//                    alert?.setButton(
+//                        AlertDialog.BUTTON_NEUTRAL, "Pronunciation",
+//                        DialogInterface.OnClickListener { dialog, which ->
+//                            val text = searchWordTextInput!!.text.toString().trim();
+//
+//                            if (text.isNotEmpty()) {
+//                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//                                    textToSpeechEngine!!.speak(text, TextToSpeech.QUEUE_FLUSH, null, "tts1")
+//                                } else {
+//                                    textToSpeechEngine!!.speak(text, TextToSpeech.QUEUE_FLUSH, null)
+//                                }
+//                            } else {
+//                                Toast.makeText(this, "Text cannot be empty", Toast.LENGTH_LONG).show()
+//                            }
+//                        }
+//                    )
+//                    alert?.show()
 
                 } catch (e : Exception) {
                     Log.d("API Response:", "Ran into error while parsing API Response")

@@ -4,63 +4,86 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/textview"
-        android:layout_width="392dp"
-        android:layout_height="112dp"
+<!--    <RelativeLayout-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_below="@id/textview"-->
+<!--        android:layout_margin="15dp"-->
+<!--        android:layout_marginTop="124dp"-->
+<!--        android:layout_marginBottom="15dp">-->
+
+<!--    </RelativeLayout>-->
+
+    <Button
+        android:id="@+id/shareOnFacebookBtn"
+        android:layout_width="88dp"
+        android:layout_height="wrap_content"
+
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="14dp"
-        android:layout_marginTop="317dp"
-        android:layout_marginEnd="5dp"
-        android:layout_marginBottom="302dp"
-        android:padding="10dp"
-        android:text="Custom Definition Alert Dialog"
-        android:textAlignment="center"
-        android:textSize="25sp"
-        android:textStyle="bold" />
-
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/textview"
-        android:layout_margin="15dp"
-        android:layout_marginTop="124dp"
-        android:layout_marginBottom="15dp">
-
-    </RelativeLayout>
-
-    <TextView
-        android:id="@+id/okay_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/textview"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="26dp"
-        android:layout_marginEnd="123dp"
+        android:layout_marginStart="91dp"
+        android:layout_marginTop="478dp"
+        android:layout_marginEnd="232dp"
         android:layout_marginRight="100dp"
-        android:layout_marginBottom="-133dp"
-        android:text="Share On Facebook"
+        android:layout_marginBottom="-188dp"
+        android:text="Share"
         android:textColor="#3F51B5"
-        android:textSize="30sp"
+        android:textSize="12sp"
         android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/cancel_text"
-        android:layout_width="239dp"
-        android:layout_height="56dp"
-        android:layout_alignBottom="@+id/textview"
+    <Button
+        android:id="@+id/pronounceBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="30dp"
         android:layout_marginLeft="100dp"
-        android:layout_marginEnd="152dp"
-        android:layout_marginBottom="-79dp"
+        android:layout_marginTop="479dp"
+        android:layout_marginEnd="75dp"
         android:text="Pronunciation"
         android:textColor="#FF0000"
-        android:textSize="30sp"
+        android:textSize="12sp"
+        android:textStyle="bold" />
+
+    <ScrollView
+        android:layout_width="373dp"
+        android:layout_height="377dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="21dp"
+        android:layout_marginTop="93dp"
+        android:layout_marginEnd="17dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/definitionDescription"
+                android:layout_width="match_parent"
+                android:layout_height="374dp"
+                android:text="Definition Description" />
+        </LinearLayout>
+    </ScrollView>
+
+    <TextView
+        android:id="@+id/definitionWord"
+        android:layout_width="371dp"
+        android:layout_height="56dp"
+
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="21dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="19dp"
+        android:layout_marginBottom="74dp"
+        android:text="Definition Word"
+        android:textSize="34sp"
         android:textStyle="bold" />
 
 </RelativeLayout>
