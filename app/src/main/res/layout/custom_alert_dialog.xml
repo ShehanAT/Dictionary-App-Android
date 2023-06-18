@@ -1,27 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<!--<RelativeLayout-->
+<!--    xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="match_parent">-->
 
-<!--    <RelativeLayout-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_below="@id/textview"-->
-<!--        android:layout_margin="15dp"-->
-<!--        android:layout_marginTop="124dp"-->
-<!--        android:layout_marginBottom="15dp">-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="300dp"
+    android:layout_height="440dp"
+    android:layout_alignParentStart="true"
+    android:layout_alignParentTop="true"
+    android:layout_alignParentEnd="true"
+    android:layout_alignParentBottom="true"
+    android:layout_marginStart="61dp"
+    android:layout_marginTop="160dp"
+    android:layout_marginEnd="49dp"
+    android:layout_marginBottom="131dp"
+    android:orientation="vertical"
+    android:visibility="visible">
 
-<!--    </RelativeLayout>-->
 
     <Button
         android:id="@+id/shareOnFacebookBtn"
-        android:layout_width="88dp"
-        android:layout_height="wrap_content"
+        android:layout_width="119dp"
+        android:layout_height="47dp"
 
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
+
         android:layout_marginStart="91dp"
         android:layout_marginTop="478dp"
         android:layout_marginEnd="232dp"
@@ -30,32 +33,18 @@
         android:text="Share"
         android:textColor="#3F51B5"
         android:textSize="12sp"
-        android:textStyle="bold" />
-
-    <Button
-        android:id="@+id/pronounceBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="30dp"
-        android:layout_marginLeft="100dp"
-        android:layout_marginTop="479dp"
-        android:layout_marginEnd="75dp"
-        android:text="Pronunciation"
-        android:textColor="#FF0000"
-        android:textSize="12sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:translationY="-150dp" />
 
     <ScrollView
-        android:layout_width="373dp"
-        android:layout_height="377dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
+        android:layout_width="300dp"
+        android:layout_height="200dp"
+
         android:layout_marginStart="21dp"
         android:layout_marginTop="93dp"
-        android:layout_marginEnd="17dp">
+        android:layout_marginEnd="17dp"
+        android:translationX="-20dp"
+        android:translationY="-300dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -70,9 +59,22 @@
         </LinearLayout>
     </ScrollView>
 
+    <Button
+        android:id="@+id/pronounceBtn"
+        android:layout_width="124dp"
+        android:layout_height="50dp"
+        android:scaleX="1"
+        android:scaleY="1"
+        android:text="Hear"
+        android:textColor="#FF0000"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        android:translationX="90dp"
+        android:translationY="-250dp" />
+
     <TextView
         android:id="@+id/definitionWord"
-        android:layout_width="371dp"
+        android:layout_width="wrap_content"
         android:layout_height="56dp"
 
         android:layout_alignParentStart="true"
@@ -84,6 +86,9 @@
         android:layout_marginBottom="74dp"
         android:text="Definition Word"
         android:textSize="34sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:translationY="-650dp" />
 
-</RelativeLayout>
+
+</LinearLayout>
+<!--</RelativeLayout>-->

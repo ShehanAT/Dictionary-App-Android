@@ -13,7 +13,8 @@ class CustomDefinitionDialog  {
     var d: Dialog? = null
     var pronounceBtn: Button? = null
     var shareOnFacebookBtn: Button? = null
-    
+    var definitionWordItem: TextView? = null
+    var definitionTextItem: TextView?  = null
 //    override fun onCreate(savedInstanceState: Bundle) {
 //        super.onCreate(savedInstanceState)
 //        setContentView(R.layout.custom_alert_dialog)
@@ -33,13 +34,17 @@ class CustomDefinitionDialog  {
 //    }
     open fun showDialog(activity: Activity?, definitionWord: String, definitionText: String) {
         val dialog = Dialog(activity!!)
-        dialog.requestWindowFeature(Window.FEATURE_CUSTOM_TITLE)
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog.setCancelable(true)
         dialog.setContentView(R.layout.custom_alert_dialog)
         val pronounceBtn = dialog.findViewById<View>(R.id.pronounceBtn) as Button
         pronounceBtn
         val shareOnFacebookBtn = dialog.findViewById<View>(R.id.shareOnFacebookBtn) as Button
         shareOnFacebookBtn.setOnClickListener { dialog.dismiss() }
+        definitionWordItem = dialog.findViewById<View>(R.id.definitionWord) as TextView
+        definitionWordItem!!.text = definitionWord
+        definitionTextItem = dialog.findViewById<View>(R.id.definitionDescription) as TextView
+        definitionTextItem!!.text = definitionText
         dialog.show()
     }
 }
