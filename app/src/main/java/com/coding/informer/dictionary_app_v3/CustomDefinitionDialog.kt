@@ -15,23 +15,7 @@ class CustomDefinitionDialog  {
     var shareOnFacebookBtn: Button? = null
     var definitionWordItem: TextView? = null
     var definitionTextItem: TextView?  = null
-//    override fun onCreate(savedInstanceState: Bundle) {
-//        super.onCreate(savedInstanceState)
-//        setContentView(R.layout.custom_alert_dialog)
-//        shareOnFacebookBtn = findViewById<View>(R.id.pronounceBtn) as Button
-//        shareOnFacebookBtn = findViewById<View>(R.id.shareOnFacebookBtn) as Button
-//        pronounceBtn!!.setOnClickListener(this)
-//        shareOnFacebookBtn!!.setOnClickListener(this)
-//    }
 
-//    override fun onClick(v: View) {
-//        when (v.id) {
-//            R.id.shareOnFacebookBtn -> c.finish()
-//            R.id.shareOnFacebookBtn -> dismiss()
-//            else -> {}
-//        }
-//        dismiss()
-//    }
     open fun showDialog(activity: Activity?, definitionWord: String, definitionText: String) {
         val dialog = Dialog(activity!!)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
