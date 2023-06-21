@@ -3,26 +3,42 @@ package com.coding.informer.dictionary_app_v3
 
 import android.app.Activity
 import android.app.Dialog
+import android.content.ContextParams
 import android.net.Uri
+import android.os.Bundle
 import android.speech.tts.TextToSpeech
 import android.util.Log
 import android.view.View
 import android.view.Window
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
+import com.android.volley.Request
+import com.android.volley.RequestQueue
+import com.android.volley.Response
+import com.android.volley.toolbox.StringRequest
+import com.android.volley.toolbox.Volley
+import com.coding.informer.dictionary_app_v3.translation_engine.ConversionCallback
+import com.coding.informer.dictionary_app_v3.translation_engine.TranslatorFactory
 import com.facebook.share.model.ShareLinkContent
 import com.facebook.share.widget.ShareDialog
+import org.json.JSONArray
+import org.json.JSONObject
 import java.util.Locale
 
 
 
-class CustomDefinitionDialog  {
+class CustomDefinitionDialog : AppCompatActivity(), TextToSpeech.OnInitListener  {
     var d: Dialog? = null
     var pronounceBtn: Button? = null
     var shareOnFacebookBtn: Button? = null
     var definitionWordItem: TextView? = null
     var definitionTextItem: TextView?  = null
-
+    var tts : TextToSpeech? = null
+    var mRequestQueue : RequestQueue? = null;
+    var mStringRequest : StringRequest? = null;
 //    private val textToSpeechEngine: TextToSpeech by lazy {
 //        // Pass in context and the listener.
 //        TextToSpeech(,
@@ -53,7 +69,51 @@ class CustomDefinitionDialog  {
         definitionTextItem!!.text = definitionText
 
         pronounceBtn.setOnClickListener {
-            dialog.hide()
+            var jsonBody : JSONObject = JSONObject()
+            jsonBody.put("text", "Test")
+
+            var requestBody : String = jsonBody.toString()
+            mRequestQueue = Volley.newRequestQueue(this)
+
+            mStringRequest = StringRequest(
+                Request.Method.POST, Api.LARGE_TTS_BASE_URL,
+                Response.Listener { response : String ->
+
+                    Log.d("API Response", response)
+
+                }
+            ,
+                Response.ErrorListener { error ->
+
+                Log.d("API Response", "Word not found in Dictionary API")
+            }) {
+                fun getParams(): Map<String, String>? {
+                    var params : MutableMap<String, String> = HashMap()
+                    params["text"] = "Test"
+                    return params
+                }
+            }
+            mRequestQueue!!.add(mStringRequest)
+//            tts = TextToSpeech(this, this)
+//            onInit(0)
+//            tts!!.speak("Test", TextToSpeech.QUEUE_FLUSH, null, "")
+//            TranslatorFactory
+//                .instance
+//                .with(TranslatorFactory.TRANSLATORS.SPEECH_TO_TEXT,
+//                    object : ConversionCallback {
+//                        override fun onSuccess(result: String) {
+//                            Log.d("TranslatorFactory", "Result: ${result}")
+//                        }
+//
+//                        override fun onCompletion() {
+//
+//                        }
+//
+//                        override fun onErrorOccurred(errorMessage: String) {
+//                            Log.d("TranslatorFactory", "ErrorMessage: ${errorMessage}")
+//                        }
+//                    }
+//                    ).initialize("Test", activity)
         }
 
         shareOnFacebookBtn.setOnClickListener {
@@ -67,5 +127,28 @@ class CustomDefinitionDialog  {
         }
 
         dialog.show()
+    }
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        tts = TextToSpeech(this, this)
+
+    }
+    override fun onInit(status: Int) {
+
+        if (status == TextToSpeech.SUCCESS) {
+            // set US English as language for tts
+            val result = tts!!.setLanguage(Locale.US)
+            Log.d("TTS", "Result: ${result}")
+            if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                Log.e("TTS","The Language specified is not supported!")
+            }
+//            else {
+//                tts!!. = true
+//            }
+
+        } else {
+            Log.e("TTS", "Initilization Failed!")
+        }
     }
 }

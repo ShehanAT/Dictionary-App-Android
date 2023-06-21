@@ -8,6 +8,8 @@ import retrofit2.http.GET;
 public interface Api {
     String BASE_URL = "https://dog.ceo/api/breeds/image/random";
     String DICTIONARY_BASE_URL = "https://api.dictionaryapi.dev/api/v2/entries/en";
+
+    String LARGE_TTS_BASE_URL = "https://large-text-to-speech.p.rapidapi.com/tts";
     @GET("dogs")
     Call<List<Results>> getDogs();
 
