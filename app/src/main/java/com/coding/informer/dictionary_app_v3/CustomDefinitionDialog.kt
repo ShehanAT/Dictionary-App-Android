@@ -1,9 +1,9 @@
 package com.coding.informer.dictionary_app_v3
 
 
+import android.R.attr.name
 import android.app.Activity
 import android.app.Dialog
-import android.content.ContextParams
 import android.net.Uri
 import android.os.Bundle
 import android.speech.tts.TextToSpeech
@@ -13,21 +13,17 @@ import android.view.Window
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
-import com.coding.informer.dictionary_app_v3.translation_engine.ConversionCallback
-import com.coding.informer.dictionary_app_v3.translation_engine.TranslatorFactory
 import com.facebook.share.model.ShareLinkContent
 import com.facebook.share.widget.ShareDialog
-import org.json.JSONArray
+import org.json.JSONException
 import org.json.JSONObject
 import java.util.Locale
-
 
 
 class CustomDefinitionDialog : AppCompatActivity(), TextToSpeech.OnInitListener  {
@@ -75,25 +71,53 @@ class CustomDefinitionDialog : AppCompatActivity(), TextToSpeech.OnInitListener 
             var requestBody : String = jsonBody.toString()
             mRequestQueue = Volley.newRequestQueue(this)
 
-            mStringRequest = StringRequest(
+//            mStringRequest = StringRequest(
+//                Request.Method.POST, Api.LARGE_TTS_BASE_URL,
+//                Response.Listener { response : String ->
+//
+//                    Log.d("API Response", response)
+//
+//                }
+//            ,
+//                Response.ErrorListener { error ->
+//
+//                Log.d("API Response", "Word not found in Dictionary API")
+//            }) {
+//                fun getParams(): Map<String, String>? {
+//                    var params : MutableMap<String, String> = HashMap()
+//                    params["text"] = "Test"
+//                    return params
+//                }
+//            }
+//            mRequestQueue!!.add(mStringRequest)
+
+            val request: StringRequest = object : StringRequest(
                 Request.Method.POST, Api.LARGE_TTS_BASE_URL,
-                Response.Listener { response : String ->
-
+                Response.Listener<String?> { response ->
+                    // inside on response method we are
+                    // hiding our progress bar
+                    // and setting data to edit text as empty
                     Log.d("API Response", response)
+                },
+                Response.ErrorListener { error -> // method to handle errors.
+                    Log.d("API Response", "Fail to get response = $error")
+                }) {
+                override fun getParams(): Map<String, String>? {
+                    // below line we are creating a map for
+                    // storing our values in key and value pair.
+                    val params: MutableMap<String, String> = HashMap()
 
-                }
-            ,
-                Response.ErrorListener { error ->
-
-                Log.d("API Response", "Word not found in Dictionary API")
-            }) {
-                fun getParams(): Map<String, String>? {
-                    var params : MutableMap<String, String> = HashMap()
+                    // on below line we are passing our key
+                    // and value pair to our parameters.
                     params["text"] = "Test"
+                    // at last we are
+                    // returning our params.
                     return params
                 }
             }
             mRequestQueue!!.add(mStringRequest)
+
+
 //            tts = TextToSpeech(this, this)
 //            onInit(0)
 //            tts!!.speak("Test", TextToSpeech.QUEUE_FLUSH, null, "")
