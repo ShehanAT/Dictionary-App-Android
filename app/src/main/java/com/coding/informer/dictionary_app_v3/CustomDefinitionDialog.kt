@@ -24,7 +24,7 @@ import com.facebook.share.widget.ShareDialog
 import org.json.JSONException
 import org.json.JSONObject
 import java.util.Locale
-
+//import com.marytts.android.link.MaryLink;
 
 class CustomDefinitionDialog : AppCompatActivity(), TextToSpeech.OnInitListener  {
     var d: Dialog? = null
@@ -69,30 +69,12 @@ class CustomDefinitionDialog : AppCompatActivity(), TextToSpeech.OnInitListener 
             jsonBody.put("text", "Test")
 
             var requestBody : String = jsonBody.toString()
-            mRequestQueue = Volley.newRequestQueue(this)
+            mRequestQueue = Volley.newRequestQueue(activity.applicationContext)
 
-//            mStringRequest = StringRequest(
-//                Request.Method.POST, Api.LARGE_TTS_BASE_URL,
-//                Response.Listener { response : String ->
-//
-//                    Log.d("API Response", response)
-//
-//                }
-//            ,
-//                Response.ErrorListener { error ->
-//
-//                Log.d("API Response", "Word not found in Dictionary API")
-//            }) {
-//                fun getParams(): Map<String, String>? {
-//                    var params : MutableMap<String, String> = HashMap()
-//                    params["text"] = "Test"
-//                    return params
-//                }
-//            }
-//            mRequestQueue!!.add(mStringRequest)
+//            MaryLink.load(activity.applicationContext);
 
             val request: StringRequest = object : StringRequest(
-                Request.Method.POST, Api.LARGE_TTS_BASE_URL,
+                Method.POST, Api.LARGE_TTS_BASE_URL,
                 Response.Listener<String?> { response ->
                     // inside on response method we are
                     // hiding our progress bar
@@ -115,7 +97,7 @@ class CustomDefinitionDialog : AppCompatActivity(), TextToSpeech.OnInitListener 
                     return params
                 }
             }
-            mRequestQueue!!.add(mStringRequest)
+            mRequestQueue!!.add(request)
 
 
 //            tts = TextToSpeech(this, this)
