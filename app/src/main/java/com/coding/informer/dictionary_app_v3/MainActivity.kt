@@ -159,6 +159,19 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    fun callTTSAPI() {
+        val text = searchWordTextInput!!.text.toString().trim();
+
+        if (text.isNotEmpty()) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                textToSpeechEngine!!.speak(text, TextToSpeech.QUEUE_FLUSH, null, "tts1")
+            } else {
+                textToSpeechEngine!!.speak(text, TextToSpeech.QUEUE_FLUSH, null)
+            }
+        } else {
+            Toast.makeText(this, "Text cannot be empty", Toast.LENGTH_LONG).show()
+        }
+    }
     public suspend fun addWordToBookmarkedWordSupabaseTable(wordToAdd: String) {
         val client = createSupabaseClient(
             supabaseUrl = BuildConfig.supabase_project_url,

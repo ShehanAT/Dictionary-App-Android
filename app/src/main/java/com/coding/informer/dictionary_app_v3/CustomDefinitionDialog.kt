@@ -21,10 +21,10 @@ import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.facebook.share.model.ShareLinkContent
 import com.facebook.share.widget.ShareDialog
+import io.ktor.util.reflect.instanceOf
 import org.json.JSONException
 import org.json.JSONObject
 import java.util.Locale
-//import com.marytts.android.link.MaryLink;
 
 class CustomDefinitionDialog : AppCompatActivity(), TextToSpeech.OnInitListener  {
     var d: Dialog? = null
@@ -71,33 +71,36 @@ class CustomDefinitionDialog : AppCompatActivity(), TextToSpeech.OnInitListener 
             var requestBody : String = jsonBody.toString()
             mRequestQueue = Volley.newRequestQueue(activity.applicationContext)
 
-//            MaryLink.load(activity.applicationContext);
-
-            val request: StringRequest = object : StringRequest(
-                Method.POST, Api.LARGE_TTS_BASE_URL,
-                Response.Listener<String?> { response ->
-                    // inside on response method we are
-                    // hiding our progress bar
-                    // and setting data to edit text as empty
-                    Log.d("API Response", response)
-                },
-                Response.ErrorListener { error -> // method to handle errors.
-                    Log.d("API Response", "Fail to get response = $error")
-                }) {
-                override fun getParams(): Map<String, String>? {
-                    // below line we are creating a map for
-                    // storing our values in key and value pair.
-                    val params: MutableMap<String, String> = HashMap()
-
-                    // on below line we are passing our key
-                    // and value pair to our parameters.
-                    params["text"] = "Test"
-                    // at last we are
-                    // returning our params.
-                    return params
-                }
+            var parentActivity : Activity = activity.parent
+            if(parentActivity.instanceOf(MainActivity::class)) {
+                (parentActivity as MainActivity).callTTSAPI()
             }
-            mRequestQueue!!.add(request)
+
+//            val request: StringRequest = object : StringRequest(
+//                Method.POST, Api.LARGE_TTS_BASE_URL,
+//                Response.Listener<String?> { response ->
+//                    // inside on response method we are
+//                    // hiding our progress bar
+//                    // and setting data to edit text as empty
+//                    Log.d("API Response", response)
+//                },
+//                Response.ErrorListener { error -> // method to handle errors.
+//                    Log.d("API Response", "Fail to get response = $error")
+//                }) {
+//                override fun getParams(): Map<String, String>? {
+//                    // below line we are creating a map for
+//                    // storing our values in key and value pair.
+//                    val params: MutableMap<String, String> = HashMap()
+//
+//                    // on below line we are passing our key
+//                    // and value pair to our parameters.
+//                    params["text"] = "Test"
+//                    // at last we are
+//                    // returning our params.
+//                    return params
+//                }
+//            }
+//            mRequestQueue!!.add(request)
 
 
 //            tts = TextToSpeech(this, this)
