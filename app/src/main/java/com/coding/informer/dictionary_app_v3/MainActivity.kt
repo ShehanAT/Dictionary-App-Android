@@ -58,6 +58,20 @@ class MainActivity : AppCompatActivity() {
         private const val REQUEST_CODE_STT = 1
     }
 
+
+    fun initTTS() {
+        TextToSpeech(this,
+            TextToSpeech.OnInitListener { status ->
+                // set our locale only if init was success.
+                Log.d("TextToSpeech", "TextToSpeech Status: $status")
+                if (status == TextToSpeech.SUCCESS) {
+                    Log.d("TextToSpeech", "TextToSpeech API Init Success")
+                    textToSpeechEngine.language = Locale.UK
+                } else{
+                    Log.d("TextToSpeech", "TextToSpeech API Init Failure")
+                }
+            })
+    }
     private val textToSpeechEngine: TextToSpeech by lazy {
         // Pass in context and the listener.
         TextToSpeech(this,
@@ -79,6 +93,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_main)
+
+        initTTS()
 
         searchWordTextInput = findViewById<TextInputEditText>(R.id.searchWordTextInput)
 

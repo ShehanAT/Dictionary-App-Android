@@ -71,10 +71,13 @@ class CustomDefinitionDialog : AppCompatActivity(), TextToSpeech.OnInitListener 
             var requestBody : String = jsonBody.toString()
             mRequestQueue = Volley.newRequestQueue(activity.applicationContext)
 
-            var parentActivity : Activity = activity.parent
-            if(parentActivity.instanceOf(MainActivity::class)) {
-                (parentActivity as MainActivity).callTTSAPI()
+            if(activity != null){
+                var parentActivity : Activity = activity
+                if(parentActivity.instanceOf(MainActivity::class)) {
+                    (parentActivity as MainActivity).callTTSAPI()
+                }
             }
+
 
 //            val request: StringRequest = object : StringRequest(
 //                Method.POST, Api.LARGE_TTS_BASE_URL,
