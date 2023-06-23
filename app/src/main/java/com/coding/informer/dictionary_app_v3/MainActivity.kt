@@ -3,11 +3,7 @@ package com.coding.informer.dictionary_app_v3
 
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.content.DialogInterface
 import android.content.Intent
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.speech.RecognizerIntent
@@ -15,7 +11,6 @@ import android.speech.tts.TextToSpeech
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
-import android.view.LayoutInflater
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -24,8 +19,6 @@ import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
-import com.facebook.share.model.ShareLinkContent
-import com.facebook.share.widget.ShareDialog
 import com.google.android.material.textfield.TextInputEditText
 import io.github.jan.supabase.createSupabaseClient
 import io.github.jan.supabase.gotrue.GoTrue
@@ -95,6 +88,11 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         initTTS()
+//        TextToSpeech(
+//            this,
+//            this // TextToSpeech.OnInitListener
+//        )
+
 
         searchWordTextInput = findViewById<TextInputEditText>(R.id.searchWordTextInput)
 
@@ -180,7 +178,8 @@ class MainActivity : AppCompatActivity() {
 
         if (text.isNotEmpty()) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                textToSpeechEngine!!.speak(text, TextToSpeech.QUEUE_FLUSH, null, "tts1")
+                textToSpeechEngine!!.speak(text, TextToSpeech.QUEUE_FLUSH, null)
+//                textToSpeechEngine!!.speak(text, TextToSpeech.QUEUE_FLUSH, null, "tts1")
             } else {
                 textToSpeechEngine!!.speak(text, TextToSpeech.QUEUE_FLUSH, null)
             }
