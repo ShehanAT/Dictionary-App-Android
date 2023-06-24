@@ -21,7 +21,6 @@ import org.json.JSONObject
 internal class RecyclerViewHolders(itemView: View) : RecyclerView.ViewHolder(itemView),
     View.OnClickListener {
     var wordText: TextView
-    var awardYear: TextView
     var wordAddedDate: TextView
     private val selectedItems = SparseBooleanArray()
     var mRequestQueue : RequestQueue? = null;
@@ -32,7 +31,6 @@ internal class RecyclerViewHolders(itemView: View) : RecyclerView.ViewHolder(ite
     init {
         itemView.setOnClickListener(this)
         wordText = itemView.findViewById(R.id.wordText)
-        awardYear = itemView.findViewById(R.id.awardYear)
         wordAddedDate = itemView.findViewById(R.id.wordAddedDate)
     }
 
