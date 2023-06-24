@@ -6,6 +6,7 @@ import android.util.Log
 import android.util.SparseBooleanArray
 import android.view.View
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
@@ -54,7 +55,6 @@ internal class RecyclerViewHolders(itemView: View) : RecyclerView.ViewHolder(ite
             { response ->
                 val jsonResponse = JSONArray(response);
 //Syntax for traversing jsonResponse in order to extract definitions:
-// (((jsonResponse.get(0) as JSONObject).getJSONArray("meanings").get(0) as JSONObject).getJSONArray("definitions").get(0) as JSONObject).getString("definition")
                 val meaningsObj = (jsonResponse.get(0) as JSONObject).getJSONArray("meanings");
                 try{
                     definitionListStr = "\n";
@@ -85,7 +85,18 @@ internal class RecyclerViewHolders(itemView: View) : RecyclerView.ViewHolder(ite
 
             }
         ) { error ->
-            Log.d( "API Response: ", "Ran into error during API Request")
+//            var errorAlert: AlertDialog? = dialogBuilder?.create()
+            dialogBuilder = AlertDialog.Builder(itemView.context)
+            var errorAlert: AlertDialog? = dialogBuilder?.create()
+            errorAlert?.setCancelable(true)
+            errorAlert?.setTitle("Word Not Found")
+            errorAlert?.setMessage("Sorry, we were not able to find any definitions for that word. Please try again...")
+            errorAlert?.setOnCancelListener {
+                    selectedItems.delete(adapterPosition)
+                    itemView.isSelected = false
+            }
+            errorAlert?.show()
+            Log.d("API Response", "Word not found in Dictionary API")
         }
         mRequestQueue!!.add(mStringRequest)
     }

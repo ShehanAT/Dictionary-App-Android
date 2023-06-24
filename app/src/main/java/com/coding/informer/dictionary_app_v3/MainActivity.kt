@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
     var definitionList : ArrayList<String> = ArrayList();
     var definitionListStr : String = "";
     var pronunciationBtn : Button? = null;
-    var bookmarkBtn : Button? = null;
+
     var bookmarksPageBtn : Button? = null;
     var historyPageBtn : Button? = null;
     var dialogBuilder: AlertDialog.Builder? = null;
@@ -96,11 +96,9 @@ class MainActivity : AppCompatActivity() {
 
         searchWordTextInput = findViewById<TextInputEditText>(R.id.searchWordTextInput)
 
-        pronunciationBtn = findViewById<Button>(R.id.pronunciationBtn)
-
         searchButton = findViewById<Button>(R.id.searchButton)
 
-        bookmarkBtn = findViewById<Button>(R.id.bookmarkBtn)
+
 
         bookmarksPageBtn = findViewById<Button>(R.id.bookmarksPageBtn)
 
@@ -121,27 +119,7 @@ class MainActivity : AppCompatActivity() {
             callDictionaryAPI();
         }
 
-        pronunciationBtn!!.setOnClickListener {
-            val text = searchWordTextInput!!.text.toString().trim();
 
-            if (text.isNotEmpty()) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    textToSpeechEngine!!.speak(text, TextToSpeech.QUEUE_FLUSH, null, "tts1")
-                } else {
-                    textToSpeechEngine!!.speak(text, TextToSpeech.QUEUE_FLUSH, null)
-                }
-            } else {
-                Toast.makeText(this, "Text cannot be empty", Toast.LENGTH_LONG).show()
-            }
-        }
-
-        bookmarkBtn!!.setOnClickListener {
-            var wordToBookmark = searchWordTextInput!!.text.toString().trim()
-            lifecycleScope.launch {
-                addWordToBookmarkedWordSupabaseTable(wordToBookmark)
-            }
-            Toast.makeText(this, "Bookmarked word $wordToBookmark successfully!", Toast.LENGTH_LONG).show()
-        }
 
         bookmarksPageBtn!!.setOnClickListener {
             startActivity(Intent(this, BookmarkActivity::class.java))
@@ -255,8 +233,6 @@ class MainActivity : AppCompatActivity() {
                     try{
                         var customDefinitionDialog : CustomDefinitionDialog = CustomDefinitionDialog()
                         customDefinitionDialog.showDialog(this@MainActivity, "$searchWord", definitionListStr)
-//                        customDefinitionDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-//                        customDefinitionDialog.show()
                     } catch (e : Exception) {
                         Log.d("API Response:", e.toString())
                     }
@@ -286,5 +262,9 @@ class MainActivity : AppCompatActivity() {
     override fun onDestroy() {
         textToSpeechEngine?.shutdown()
         super.onDestroy()
+    }
+
+    fun showBookmarkSuccessToast(wordToBookmark: String) {
+        Toast.makeText(this, "Bookmarked word $wordToBookmark successfully!", Toast.LENGTH_LONG).show()
     }
 }

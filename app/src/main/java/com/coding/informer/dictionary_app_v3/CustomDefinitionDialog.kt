@@ -14,6 +14,7 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.Response
@@ -22,6 +23,7 @@ import com.android.volley.toolbox.Volley
 import com.facebook.share.model.ShareLinkContent
 import com.facebook.share.widget.ShareDialog
 import io.ktor.util.reflect.instanceOf
+import kotlinx.coroutines.launch
 import org.json.JSONException
 import org.json.JSONObject
 import java.util.Locale
@@ -35,6 +37,8 @@ class CustomDefinitionDialog : AppCompatActivity(), TextToSpeech.OnInitListener 
     var tts : TextToSpeech? = null
     var mRequestQueue : RequestQueue? = null;
     var mStringRequest : StringRequest? = null;
+    var bookmarkBtn : Button? = null;
+    var toastMessage: TextView? = null;
 
     open fun showDialog(activity: Activity?, definitionWord: String, definitionText: String) {
         val dialog = Dialog(activity!!)
@@ -44,10 +48,30 @@ class CustomDefinitionDialog : AppCompatActivity(), TextToSpeech.OnInitListener 
         val pronounceBtn = dialog.findViewById<View>(R.id.pronounceBtn) as Button
         val shareOnFacebookBtn = dialog.findViewById<View>(R.id.shareOnFacebookBtn) as Button
 
+        toastMessage = dialog.findViewById<View>(R.id.toastMessage) as TextView
+        toastMessage!!.text = ""
+
         definitionWordItem = dialog.findViewById<View>(R.id.definitionWord) as TextView
         definitionWordItem!!.text = definitionWord
         definitionTextItem = dialog.findViewById<View>(R.id.definitionDescription) as TextView
         definitionTextItem!!.text = definitionText
+
+        bookmarkBtn = dialog.findViewById<View>(R.id.bookmarkBtn) as Button
+
+        bookmarkBtn!!.setOnClickListener {
+            var wordToBookmark = definitionWord
+            lifecycleScope.launch {
+                if(activity != null){
+                    var parentActivity : Activity = activity
+                    if(parentActivity.instanceOf(MainActivity::class)) {
+                        (parentActivity as MainActivity).addWordToBookmarkedWordSupabaseTable(wordToBookmark)
+                        toastMessage!!.text = "Word bookmarked successfully!"
+                    }
+                }
+            }
+        }
+
+
 
         pronounceBtn.setOnClickListener {
             var jsonBody : JSONObject = JSONObject()
@@ -80,6 +104,8 @@ class CustomDefinitionDialog : AppCompatActivity(), TextToSpeech.OnInitListener 
         super.onCreate(savedInstanceState)
 
         tts = TextToSpeech(this, this)
+
+
 
     }
     override fun onInit(status: Int) {
