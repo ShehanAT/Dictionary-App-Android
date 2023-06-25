@@ -5,6 +5,7 @@
 <!--    android:layout_height="match_parent">-->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="300dp"
     android:layout_height="440dp"
     android:layout_alignParentStart="true"
@@ -102,6 +103,14 @@
         android:textSize="34sp"
         android:textStyle="bold"
         android:translationY="-680dp" />
+
+    <ImageButton
+        android:id="@+id/closeBtn"
+        android:layout_width="77dp"
+        android:layout_height="71dp"
+        android:translationX="220dp"
+        android:translationY="-870dp"
+        app:srcCompat="@drawable/close_icon" />
 
     <TextView
         android:id="@+id/toastMessage"

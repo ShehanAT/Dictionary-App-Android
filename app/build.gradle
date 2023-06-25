@@ -11,7 +11,7 @@ android {
     compileSdkPreview "UpsideDownCake"
     defaultConfig {
         applicationId "com.coding.informer.dictionary_app_v3"
-        minSdk 21
+        minSdk 26
         targetSdkVersion 33
         versionCode 1
         versionName "1.0"

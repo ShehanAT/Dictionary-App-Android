@@ -11,6 +11,7 @@ import android.util.Log
 import android.view.View
 import android.view.Window
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -39,6 +40,7 @@ class CustomDefinitionDialog : AppCompatActivity(), TextToSpeech.OnInitListener 
     var mStringRequest : StringRequest? = null;
     var bookmarkBtn : Button? = null;
     var toastMessage: TextView? = null;
+    var closeBtn : ImageButton? = null;
 
     open fun showDialog(activity: Activity?, definitionWord: String, definitionText: String) {
         val dialog = Dialog(activity!!)
@@ -51,6 +53,11 @@ class CustomDefinitionDialog : AppCompatActivity(), TextToSpeech.OnInitListener 
         toastMessage = dialog.findViewById<View>(R.id.toastMessage) as TextView
         toastMessage!!.text = ""
 
+        closeBtn = dialog.findViewById<View>(R.id.closeBtn) as ImageButton
+        closeBtn!!.setOnClickListener {
+            dialog.hide()
+        }
+
         definitionWordItem = dialog.findViewById<View>(R.id.definitionWord) as TextView
         definitionWordItem!!.text = definitionWord
         definitionTextItem = dialog.findViewById<View>(R.id.definitionDescription) as TextView
@@ -61,10 +68,12 @@ class CustomDefinitionDialog : AppCompatActivity(), TextToSpeech.OnInitListener 
         bookmarkBtn!!.setOnClickListener {
             var wordToBookmark = definitionWord
             lifecycleScope.launch {
-                if(activity != null){
-                    var parentActivity : Activity = activity
-                    if(parentActivity.instanceOf(MainActivity::class)) {
-                        (parentActivity as MainActivity).addWordToBookmarkedWordSupabaseTable(wordToBookmark)
+                if (activity != null) {
+                    var parentActivity: Activity = activity
+                    if (parentActivity.instanceOf(MainActivity::class)) {
+                        (parentActivity as MainActivity).addWordToBookmarkedWordSupabaseTable(
+                            wordToBookmark
+                        )
                         toastMessage!!.text = "Word bookmarked successfully!"
                     }
                 }
@@ -74,15 +83,15 @@ class CustomDefinitionDialog : AppCompatActivity(), TextToSpeech.OnInitListener 
 
 
         pronounceBtn.setOnClickListener {
-            var jsonBody : JSONObject = JSONObject()
+            var jsonBody: JSONObject = JSONObject()
             jsonBody.put("text", "Test")
 
-            var requestBody : String = jsonBody.toString()
+            var requestBody: String = jsonBody.toString()
             mRequestQueue = Volley.newRequestQueue(activity.applicationContext)
 
-            if(activity != null){
-                var parentActivity : Activity = activity
-                if(parentActivity.instanceOf(MainActivity::class)) {
+            if (activity != null) {
+                var parentActivity: Activity = activity
+                if (parentActivity.instanceOf(MainActivity::class)) {
                     (parentActivity as MainActivity).callTTSAPI()
                 }
             }
