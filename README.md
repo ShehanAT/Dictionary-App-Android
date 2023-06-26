@@ -5,10 +5,21 @@ A simple Dictionary Application built using Kotlin, Gradle, and Android Studio
 
 ## Screenshots
 
-![Homepage image 1](/screenshots/homepage_image_1.png)
+![Homepage image 1](/screenshots/dictionary-app-image1.png)
 
-Figure 1: Homepage image
+Figure 1: Homepage Image 1
 
+![Homepage image 2](/screenshots/dictionary-app-image2.png)
+
+Figure 2: Homepage Image 2
+
+![Bookmark Page](/screenshots/dictionary-app-bookmark-image1.png)
+
+Figure 3: Bookmark Page Image 1
+
+![History Page](/screenshots/dictionary-app-history-image1.png)
+
+Figure 4: History Page Image 1
 
 # Getting Started
 
