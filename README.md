@@ -1,7 +1,11 @@
 # Flutter Calorie Tracker App
 
 ### Overview
-A simple Dictionary Application built using Kotlin, Gradle, and Android Studio
+A simple Dictionary Application built using Kotlin, Gradle, and Android Studio. 
+
+It uses the [freeDictionaryAPI](https://github.com/meetDeveloper/freeDictionaryAPI) to obtain word definitions. 
+
+It also allows for sharing word definitions via Facebook, allows for bookmarking words and allowing the user to view a search history of recent word searches.
 
 ## Screenshots
 
@@ -32,10 +36,9 @@ Figure 5: History Page
 Here are the steps to run this application locally:
 1. Clone the project
 2. Import the project into Android Studio
-3. Click on the `Run 'app`' icon after the Gradle build process completes
+3. Click on the `Run 'app'` icon after the Gradle build process completes
 
 
-### Roadmap
 
 ### Contributing
 
