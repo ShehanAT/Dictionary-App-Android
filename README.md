@@ -5,7 +5,7 @@ A simple Dictionary Application built using Kotlin, Gradle, and Android Studio.
 
 It uses the [freeDictionaryAPI](https://github.com/meetDeveloper/freeDictionaryAPI) to obtain word definitions. 
 
-It also allows for sharing word definitions via Facebook, allows for bookmarking words and allowing the user to view a search history of recent word searches.
+It also allows for sharing word definitions via Facebook, allows for bookmarking words and allows the user to view a search history of recent word searches.
 
 ## Screenshots
 
